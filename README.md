@@ -28,9 +28,9 @@ L'arborescence du projet :
 # Github
 
 * Déclarer `docs/` comme github pages (project settings)
-* Lancer la commande `mvn` à la craine du projet (ou via votre IDE) **avant** de _commit_ et _push_.
+* Lancer la commande `mvn` à la racine du projet (ou via votre IDE) **avant** de _commit_ et _push_.
  Ce qui aura pour effet de placer le build html (`target/generated-docs/*`) dans le dossier `docs/` (inclus dans
-  le commit).
+  le commit), en plus de génrer une version pdf (`index.pdf`) - TODO rename index.pdf to `project-name.pdf`.
 
 Le résultat sera accessible : _https://<\<user>>.github.io/<\<project-name>>_
 
