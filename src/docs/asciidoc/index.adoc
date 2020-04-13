@@ -1,0 +1,41 @@
+= Template titre
+auteur 
+v1.0, 2020-04-13: Version asciidoc
+:description: template description
+:icons: font
+:listing-caption: Listing
+:toc-title: Table des matieres
+:toc:
+:toclevels: 3
+:source-highlighter: coderay
+ifdef::backend-pdf[]
+:source-highlighter: rouge
+:title-logo-image: image:logo.png[pdfwidth=4.25in,align=center]
+endif::[]
+ifndef::backend-pdf[]
+:imagesdir: images
+endif::[]
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== Présentation
+
+ifdef::backend-pdf[]
+image:cogitas.png[title="cogitas", 200]
+endif::[]
+
+ifndef::backend-pdf[]
+image:cogitas.png[title="cogitas", 200]
+endif::[]
+
+Texte introductif
+
+// <<<
+include::_doc1.adoc[leveloffset=+1]
+

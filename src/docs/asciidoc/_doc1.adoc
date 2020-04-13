@@ -1,0 +1,33 @@
+= Titre doc 1
+ifndef::backend-pdf[]
+:imagesdir: images
+endif::[]
+
+== Introduction
+
+TIP: Exemple d'après Jacquelin Charbonnel — CNRS LAREMA (octobre 2019)
+
+[NOTE]
+--
+Ici, c'est un apparté (sidebar, dont le rendu peut varier, c'est responsive).
+On y met ce que l'on veut, par exemple une liste :
+
+* level1
+** level2
+* level1
+[sidebar]
+****
+WARNING: Ici, c'est un apparté dans l'apparté, avec ci-dessous un tableau :
+|===
+|col1 | col2| col3
+|A
+|B
+|C
+|===
+[sidebar]
+*****
+IMPORTANT: Et on peut continueeeeer ! Taïôôôôôôôôôô
+*****
+****
+--
+
