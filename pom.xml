@@ -117,11 +117,29 @@
                             </resources>
                         </configuration>
                     </execution>
-
                 </executions>
-
             </plugin>
 
+            <!-- rename index.pdf to project_name.pdf -->
+            <plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>1.0.1</version>
+                <executions>
+                    <execution>
+                        <id>rename-file</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>rename</goal>
+                        </goals>
+                        <configuration>
+                            <!--https://stackoverflow.com/questions/9849868/getting-name-of-last-folder-from-maven-project-basedir -->
+                            <sourceFile>${project.build.directory}/pdf/index.pdf</sourceFile>
+                            <destinationFile>${project.build.directory}/pdf/${project.file.parentFile.name}.pdf</destinationFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
          
             <plugin>
                 <groupId>de.saumya.mojo</groupId>
