@@ -105,7 +105,7 @@ cadre d'une applications web multi-utilisateurs)
 In fine, le contrôleur de cas d'utilisation "fusion" (après le upload des 2 fichiers à fusionner) permettra
 à l'utilisateur de télécharger le résultat de la fusion (type MIME  `text/csv`).
 
-== Deuxième partie : Extraction DB SQL
+== Deuxième partie : ETL
 
 L'entreprise SPARK-LINE envisage de se lancer dans des produits en liens avec l'automobile.
 Le département R&D souhaite disposer d'un modèle de donnée suivant :
@@ -165,9 +165,12 @@ IMPORTANT: L'utilisateur pourra être en mesure de renouveller son action avec d
 données mises à jours. **Le chargement de nouvelles données ne devra pas générer de doublons dans la base de données**.
 À ce titre, la présence de tests unitaires s'assurant du respect de cette règle est attendue.
 
-* À l'issue de l'opération ETL, une représentation graphique de données statistiques (répartition des marques
-parmi les clients) est attendue sur le tiers client.
-À vous de proposer une vue adaptée pour le service R&D. (optionnel) Une fonction d'export de ces données serait
+* Une représentation graphique de données statistiques (répartition des marques
+parmi les clients) est attendue sur le tiers client. Les données exploitées pour cette représentation
+seront tirées de la base de donnes.
+À vous de proposer une vue adaptée pour le service R&D.
+
+* (optionnel) Une fonction d'export de données client serait
 appréciée (format à déterminer).
 
 
