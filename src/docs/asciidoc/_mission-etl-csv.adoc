@@ -85,7 +85,9 @@ séquetielles et entrelacées, avec comme données d'entrée les fichiers `small
 ==== Opérations de fusion en tant que service injecté
 
 Les opérations de fusions (function) seront placées dans une classe à part,
-et injecté dans un contrôleur (pour utilisation par ce dernier).
+en vue d'une utilisatetion par injection de service dans un contrôleur (pour utilisation par ce dernier).
+
+Ressource : https://symfony.com/doc/current/service_container.html
 
 Votre rapport présentera vos travaux dans ce sens (algorithme, et méthode d'injection utilisée)
 
