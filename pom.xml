@@ -3,11 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.exemple</groupId>
-    <artifactId>exercices_qualite_code</artifactId>
+    <artifactId>template</artifactId>
     <version>1.0</version>
-    <name>exercices_qualite_code</name>
-    <description>Exercices sur la qualite du code</description>
-
+    <name>template</name>
+    <description>template tool chain</description>
     <properties>
         <project.slides.directory>${project.build.directory}/generated-slides</project.slides.directory>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

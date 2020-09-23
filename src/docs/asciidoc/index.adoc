@@ -1,7 +1,7 @@
-= Template titre
-auteur 
-v1.0, 2020-04-13: Version asciidoc
-:description: template description
+= Projet en développement logiciel
+O. Capuozzo
+v1.2, 2020-09-22: Version asciidoc
+:description: Aborder un exemple de traitement sur des données CSV
 :icons: font
 :listing-caption: Listing
 :toc-title: Table des matieres
@@ -34,8 +34,9 @@ ifndef::backend-pdf[]
 image:cogitas.png[title="cogitas", 200]
 endif::[]
 
-Texte introductif
+Mission de développement d'une application métier (exploitation de documents CSV),
+de préférence sous la forme d'une application web à base de framework.
 
 // <<<
-include::_doc1.adoc[leveloffset=+1]
+include::_mission-etl-csv.adoc[leveloffset=+1]
 

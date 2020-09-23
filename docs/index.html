@@ -5,9 +5,9 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<meta name="description" content="template description">
-<meta name="author" content="auteur">
-<title>Template titre</title>
+<meta name="description" content="Aborder un exemple de traitement sur des données CSV">
+<meta name="author" content="O. Capuozzo">
+<title>Projet en développement logiciel</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <link rel="stylesheet" href="./asciidoctor.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -15,20 +15,33 @@
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Template titre</h1>
+<h1>Projet en développement logiciel</h1>
 <div class="details">
-<span id="author" class="author">auteur</span><br>
-<span id="revnumber">version 1.0,</span>
-<span id="revdate">2020-04-13</span>
+<span id="author" class="author">O. Capuozzo</span><br>
+<span id="revnumber">version 1.2,</span>
+<span id="revdate">2020-09-22</span>
 <br><span id="revremark">Version asciidoc</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table des matieres</div>
 <ul class="sectlevel1">
 <li><a href="#présentation">Présentation</a></li>
-<li><a href="#titre-doc-1">Titre doc 1</a>
+<li><a href="#spark-line">SPARK-LINE</a>
 <ul class="sectlevel2">
-<li><a href="#introduction">Introduction</a></li>
+<li><a href="#contexte">Contexte</a></li>
+<li><a href="#première-partie-fusion">Première partie : Fusion</a>
+<ul class="sectlevel3">
+<li><a href="#informations-transmises-par-spark-line">Informations transmises par SPARK-LINE</a></li>
+<li><a href="#informations-techniques">Informations techniques</a></li>
+<li><a href="#ce-qui-est-attendu-à-l-issue-de-la-première-partie">Ce qui est attendu à l&#8217;issue de la première partie</a></li>
+</ul>
+</li>
+<li><a href="#deuxième-partie-extraction-db-sql">Deuxième partie : Extraction DB SQL</a>
+<ul class="sectlevel3">
+<li><a href="#ce-qui-est-attendu-à-l-issue-de-la-seconde-partie">Ce qui est attendu à l&#8217;issue de la seconde partie</a></li>
+<li><a href="#annexe-format-csv">Annexe Format CSV</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -42,15 +55,177 @@
 <p><span class="image"><img src="images/cogitas.png" alt="cogitas" width="200" title="cogitas"></span></p>
 </div>
 <div class="paragraph">
-<p>Texte introductif</p>
+<p>Mission de développement d&#8217;une application métier (exploitation de documents CSV),
+de préférence sous la forme d&#8217;une application web à base de framework.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="titre-doc-1"><a class="anchor" href="#titre-doc-1"></a>Titre doc 1</h2>
+<h2 id="spark-line"><a class="anchor" href="#spark-line"></a>SPARK-LINE</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="introduction"><a class="anchor" href="#introduction"></a>Introduction</h3>
+<h3 id="contexte"><a class="anchor" href="#contexte"></a>Contexte</h3>
+<div class="paragraph">
+<p>La société de service dans laquelle vous travaillez a comme client l&#8217;entreprise SPARK-LINE, createur de ligne
+de vêtements. Cette société souhaite constituer un fichier client unique, au format CSV,
+à partir de deux fichiers d&#8217;exportation transmis par ses filiales Française et Allemande. Ces fichiers sont : <code>french-client.csv</code> (~3000 clients) et <code>german-client.csv</code>
+(~2000 clients).</p>
+</div>
+<div class="paragraph">
+<p>Le fichier résultant sera composé d&#8217;un sous-ensemble des colonnes existantes (projection) et une sélection de lignes
+sera effectuée  (sélection des personnes majeures uniquement).</p>
+</div>
+<div class="paragraph">
+<p>Dans un second temps, le service R&amp;D de la société SPARK-LINE souhaite obtenir ces données sous la forme
+d&#8217;une base de données relationnelle.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="première-partie-fusion"><a class="anchor" href="#première-partie-fusion"></a>Première partie : Fusion</h3>
+<div class="paragraph">
+<p>Les fichiers sources : <a href="french-data.csv"><code>french-client.csv</code></a> (~3000 clients) et
+<a href="german-data.csv"><code>german-client.csv</code></a> (~2000 clients) ont même structure (même type de colonnes)</p>
+</div>
+<div class="paragraph">
+<p>Le fichier CSV attendu, de nom <code>french-german-client.csv</code>, ne sera pas constitué de toutes ces colonnes (projection)
+et de tous les enregistrements (sélection des personnes majeures uniquement).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Fusion</strong> : Obtenir un seul fichier à partir de 2 fichiers.</p>
+</li>
+<li>
+<p><strong>Projection</strong> : Toutes les colonnes ne sont pas concernées. Les colonnes souhaitées sont : genre, titre,
+nom, prénom, email, date de naissance, num tel, CCType, CCNumber, CVV2, CCExpires, adresse physique (plusieurs colonnes), taille, poids, véhicule, coordonnées GPS.</p>
+</li>
+<li>
+<p><strong>Sélection</strong> : seules les personnes majeures à la date de création du fichier devront être
+sélectionnées.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="informations-transmises-par-spark-line"><a class="anchor" href="#informations-transmises-par-spark-line"></a>Informations transmises par SPARK-LINE</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Certains clients ont des incohérences de valeurs entre la taille en inch et celle en cm.
+Il faudra donc extraire ces clients du fichier résultat.</p>
+</li>
+<li>
+<p>À la fin de la fusion, nous souhaiterions connaitre la taille moyenne des personnes majeurs selon le genre, et globalement.</p>
+</li>
+<li>
+<p>Des doublons sur le numéro de carte de crédit se sont glissés dans les données, ce
+qui remet en cause l&#8217;intégrité des données sur certains clients (dans le système en question, une carte de
+crédit ne peut être partagée). Nous vous demandons donc d&#8217;extraire les clients ne pouvant pas être identifiés par
+leur numéro de carte de crédit.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="informations-techniques"><a class="anchor" href="#informations-techniques"></a>Informations techniques</h4>
+<div class="sect4">
+<h5 id="masse-des-données-à-traiter"><a class="anchor" href="#masse-des-données-à-traiter"></a>Masse des données à traiter</h5>
+<div class="paragraph">
+<p>La masse d’information à traiter (~5000 clients) n’aide pas à la mise au point au cours de la première phase de développement.
+Il est alors souhaitable de constituer des données de tests afin réduire, <strong>dans un premier temps</strong>,
+le volume des données à traiter.</p>
+</div>
+<div class="paragraph">
+<p>Par exemple travailler avec un dizaine de clients suffit pour commencer. Par convention, vous nommerez ces fichiers
+<code>small-french-client.csv</code> (6 clients) et <code>small-german-client.csv</code>
+(4 clients) - ces fichiers sont à créer.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="fusion-entrelacée-ou-séquentielle"><a class="anchor" href="#fusion-entrelacée-ou-séquentielle"></a>Fusion entrelacée ou séquentielle ?</h5>
+<div class="paragraph">
+<p>Considérons les fichiers suivants, respectivement de 4 et 2 éléments :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Fic A : * * * *
+Fic B : ° °</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La fusion de ces 2 fichiers peut être mené par un algorithme séquentiel ou entrelacé.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/fusion-types.png" alt="types de fusion"></span></p>
+</div>
+<div class="paragraph">
+<p>À ce stade, le client n’a pas manifesté de critère de tri. Vous proposerez au client la possibilité de choisir
+le type de fusion.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ce-qui-est-attendu-à-l-issue-de-la-première-partie"><a class="anchor" href="#ce-qui-est-attendu-à-l-issue-de-la-première-partie"></a>Ce qui est attendu à l&#8217;issue de la première partie</h4>
+<div class="paragraph">
+<p>Votre projet hébergé sur GitLab.com, le <code>README.adoc</code> faisant office
+de rapport de projet.</p>
+</div>
+<div class="sect4">
+<h5 id="branche-de-tests-unitaire"><a class="anchor" href="#branche-de-tests-unitaire"></a>Branche de tests unitaire</h5>
+<div class="paragraph">
+<p>Votre rapport (README.adoc de votre projet) devra présenter des exemples de tests unitaires de fusions
+séquetielles et entrelacées, avec comme données d&#8217;entrée les fichiers <code>small-french-client.csv</code> et <code>small-german-client.csv</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="opérations-de-fusion-en-tant-que-service-injecté"><a class="anchor" href="#opérations-de-fusion-en-tant-que-service-injecté"></a>Opérations de fusion en tant que service injecté</h5>
+<div class="paragraph">
+<p>Les opérations de fusions (function) seront placées dans une classe à part,
+et injecté dans un contrôleur (pour utilisation par ce dernier).</p>
+</div>
+<div class="paragraph">
+<p>Votre rapport présentera vos travaux dans ce sens (algorithme, et méthode d&#8217;injection utilisée)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="gestion-du-upload"><a class="anchor" href="#gestion-du-upload"></a>Gestion du upload</h5>
+<div class="paragraph">
+<p>Les fichiers à fusionner sont transmis par l&#8217;utilisateur gestionnaire.
+Un gestionnaire est un utilisateur ayant des droits spécifiques - l&#8217;habilitation,
+bien que nécessaire, n&#8217;est pas requise dans cette mission, mais bien venue (selon la taille des équipes)</p>
+</div>
+<div class="paragraph">
+<p>Votre rapport présentera vos travaux dans ce sens (compréhension de la gestion de l&#8217;upload dans le
+cadre d&#8217;une applications web multi-utilisateurs)</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="gestion-du-download"><a class="anchor" href="#gestion-du-download"></a>Gestion du download</h5>
+<div class="paragraph">
+<p>In fine, le contrôleur de cas d&#8217;utilisation "fusion" (après le upload des 2 fichiers à fusionner) permettra
+à l&#8217;utilisateur de télécharger le résultat de la fusion (type MIME  <code>text/csv</code>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deuxième-partie-extraction-db-sql"><a class="anchor" href="#deuxième-partie-extraction-db-sql"></a>Deuxième partie : Extraction DB SQL</h3>
+<div class="paragraph">
+<p>L&#8217;entreprise SPARK-LINE envisage de se lancer dans des produits en liens avec l&#8217;automobile.
+Le département R&amp;D souhaite disposer d&#8217;un modèle de donnée suivant :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/diag-4a19366e12f2d1ca6e6d6d9c0d68c773.png" alt="Schema relationnel client-auto" width="639" height="89">
+</div>
+<div class="title">Schema relationnel client-auto</div>
+</div>
+<div class="paragraph">
+<p>Votre mission consiste, à partir d&#8217;un fichier client CSV issu de la fusion (partie 1), et transmis par
+l&#8217;utilisateur (upload), de peupler une base de données de tests correspondant
+au modèle (3 tables : <code>client</code>, <code>vehicule</code> et <code>marque</code>).</p>
+</div>
+<div class="exampleblock">
+<div class="content">
 <div class="admonitionblock tip">
 <table>
 <tr>
@@ -58,74 +233,37 @@
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Exemple d&#8217;après Jacquelin Charbonnel — CNRS LAREMA (octobre 2019)
+Le champ <code>vehicle</code> sera donc de type entité <code>Vehicule</code>, idem pour <code>Marque</code>.
+Vous aurez besoin de vous référerer à cette ressource qui explique comment
+réaliser cela à travers un exemple (<code>Product *-----&gt; 1 Category</code>) : <a href="https://symfony.com/doc/current/doctrine/associations.html" class="bare">https://symfony.com/doc/current/doctrine/associations.html</a>
 </td>
 </tr>
 </table>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>Ici, c&#8217;est un apparté (sidebar, dont le rendu peut varier, c&#8217;est responsive).
-On y met ce que l&#8217;on veut, par exemple une liste :</p>
+<p>Le mapping Objet-Relationnel permettra de représenter les données métier liées, dans la base de données, par des clés étrangères.
+Exemple :
+<code>"2000 Ford Galaxy"</code>  &#8658; <code>Vehicule (id:123  idMarque:3  model:"galaxy" annee=2000</code>)
+et <code>Marque (id=3  nom:"Ford")</code></p>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="ce-qui-est-attendu-à-l-issue-de-la-seconde-partie"><a class="anchor" href="#ce-qui-est-attendu-à-l-issue-de-la-seconde-partie"></a>Ce qui est attendu à l&#8217;issue de la seconde partie</h4>
 <div class="ulist">
 <ul>
 <li>
-<p>level1</p>
-<div class="ulist">
-<ul>
+<p>Conception de la partie <strong>Model</strong> (ajout d&#8217;entités)</p>
+</li>
 <li>
-<p>level2</p>
+<p>Lien avec un serveur de base de données (MySql)</p>
+</li>
+<li>
+<p>Conception d&#8217;un contrôleur dédiè à la fonction ELT (<em>Extract Transform Load</em>). Mise au point
+d&#8217;un scénario utilisateur intégrant des règles de validation (robustesse de l&#8217;application)</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>level1</p>
-</li>
-</ul>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Ici, c&#8217;est un apparté dans l&#8217;apparté, avec ci-dessous un tableau :
-</td>
-</tr>
-</table>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">col1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">col2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">col3</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">B</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
-</tr>
-</tbody>
-</table>
-<div class="sidebarblock">
-<div class="content">
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -133,18 +271,75 @@ Ici, c&#8217;est un apparté dans l&#8217;apparté, avec ci-dessous un tableau :
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-Et on peut continueeeeer ! Taïôôôôôôôôôô
+L&#8217;utilisateur pourra être en mesure de renouveller son action avec de nouvelles données ou des
+données mises à jours. <strong>Le chargement de nouvelles données ne devra pas générer de doublons dans la base de données</strong>.
+À ce titre, la présence de tests unitaires s&#8217;assurant du respect de cette règle est attendue.
 </td>
 </tr>
 </table>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>À l&#8217;issue de l&#8217;opération ETL, une représentation graphique de données statistiques (répartition des marques
+parmi les clients) est attendue sur le tiers client.
+À vous de proposer une vue adaptée pour le service R&amp;D. (optionnel) Une fonction d&#8217;export de ces données serait
+appréciée (format à déterminer).</p>
+</li>
+</ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="annexe-format-csv"><a class="anchor" href="#annexe-format-csv"></a>Annexe Format CSV</h4>
+<div class="paragraph">
+<p>Il existe plusieurs solutions pour que 2 systèmes puissent communiquer des données,
+indépendamment de leur implémentation interne spécifique (structure, encodage). La plupart du
+temps, le choix d&#8217;un fichier texte est privilégié à celui dit « binaire ». Parmi les solutions
+actuellement en activité on trouve plus couramment les formats : <strong>XML</strong>, <strong>JSON</strong> et <strong>CSV</strong>.</p>
 </div>
+<div class="paragraph">
+<p>Le format CSV est le plus ancien. Il est toujours utilisé, (système embarqué, instrument de mesure,
+données satellitaires, export/import base de données, etc.).</p>
 </div>
+<div class="paragraph">
+<p>CSV (<em>Comma-separated values</em>), est un format informatique ouvert
+représentant des données tabulaires sous forme de valeurs séparées par des virgules.</p>
+</div>
+<div class="paragraph">
+<p>La <strong>RFC 4180</strong> décrit la forme la plus courante de ce format et établit son type MIME  <code>text/csv</code>,
+enregistré auprès de l&#8217;autorité l&#8217;IANA qui a autorité sur les noms de domaines et tout ce qui touche
+à l&#8217;interconnexion de réseaux à internet.</p>
+</div>
+<div class="paragraph">
+<p>Un fichier CSV est un <strong>fichier texte</strong>, par opposition aux formats dits « binaires ». Chaque ligne du
+texte correspond à une ligne du tableau et les virgules correspondent aux séparations entre les
+colonnes. Les portions de texte séparées par une virgule correspondent ainsi aux contenus des
+cellules du tableau.</p>
+</div>
+<div class="paragraph">
+<p>Une ligne est une suite ordonnée de caractères terminée par un caractère de fin de ligne (line
+break – CRLF), la dernière ligne pouvant en être exemptée.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/csv-exemple.png" alt="csv exemple wikipedia"></span>
+&#8658; Attention : la première ligne désignant les "entêtes de colonne" est optionnelle.</p>
+</div>
+<div class="paragraph">
+<p>&#8658; Format CSV en détails : <a href="https://tools.ietf.org/html/rfc4180" class="bare">https://tools.ietf.org/html/rfc4180</a></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Les fichiers CSV sont, par défaut, ouverts par des logiciels tableur (Calc, Excel&#8230;&#8203;).
+C&#8217;est une source de confusion des utilisateurs lambda, confondant <code>CSV</code> avec &#8230;&#8203; Excel.
 </td>
 </tr>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -152,8 +347,8 @@ Et on peut continueeeeer ! Taïôôôôôôôôôô
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.0<br>
-Last updated 2020-04-13 11:14:47 CEST
+Version 1.2<br>
+Last updated 2020-09-23 07:33:43 CEST
 </div>
 </div>
 </body>
