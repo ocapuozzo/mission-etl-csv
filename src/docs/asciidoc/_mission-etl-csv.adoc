@@ -68,13 +68,13 @@ La fusion de ces 2 fichiers peut être mené par un algorithme séquentiel ou en
 
 image:fusion-types.png[types de fusion]
 
-À ce stade, le client n’a pas manifesté de critère de tri. Vous proposerez au client la possibilité de choisir
-le type de fusion.
+À ce stade, le client n’a pas manifesté de critère de tri. Vous proposerez donc à l'utilisateur la possibilité de choisir
+le type de fusion à appliquer.
 
 
 === Ce qui est attendu à l'issue de la première partie
 
-Votre projet hébergé sur GitLab.com, le `README.adoc` faisant office
+Le `README.adoc` de votre projet hébergé sur GitLab.com fera office
 de rapport de projet.
 
 ==== Branche de tests unitaire
@@ -102,8 +102,8 @@ cadre d'une applications web multi-utilisateurs)
 
 ==== Gestion du download
 
-In fine, le contrôleur de cas d'utilisation "fusion" (après le upload des 2 fichiers à fusionner) permettra
-à l'utilisateur de télécharger le résultat de la fusion (type MIME  `text/csv`).
+In fine, le cas d'utilisation "fusion" (après le upload des 2 fichiers à fusionner) produira un certain nombre de
+résultats: statistiques, données en erreur, et bien entendu le CSV fruit de la fusion téléchargeable (type MIME  `text/csv`).
 
 == Deuxième partie : ETL
 
