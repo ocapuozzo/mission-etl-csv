@@ -110,7 +110,7 @@ résultats: statistiques, données en erreur, et bien entendu le CSV fruit de la
 L'entreprise SPARK-LINE envisage de se lancer dans des produits en liens avec l'automobile.
 Le département R&D souhaite disposer d'un modèle de donnée suivant :
 
-.Schema relationnel client-auto
+.Schema conceptuel client-auto
 [plantuml]
 ----
 class Client {
