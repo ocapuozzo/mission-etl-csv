@@ -34,12 +34,12 @@ sélectionnées.
 
 === Informations transmises par SPARK-LINE
 
-. Certains clients ont des incohérences de valeurs entre la taille en inch et celle en cm.
+* Certains clients ont des incohérences de valeurs entre la taille en inch et celle en cm.
 Il faudra donc extraire ces clients du fichier résultat.
 
-. À la fin de la fusion, nous souhaiterions connaitre la taille moyenne des personnes majeurs selon le genre, et globalement.
+// . À la fin de la fusion, nous souhaiterions connaitre la taille moyenne des personnes majeurs selon le genre, et globalement.
 
-. Des doublons sur le numéro de carte de crédit se sont glissés dans les données, ce
+* Des doublons sur le numéro de carte de crédit se sont glissés dans les données, ce
 qui remet en cause l'intégrité des données sur certains clients (dans le système en question, une carte de
 crédit ne peut être partagée). Nous vous demandons donc d'extraire les clients ne pouvant pas être identifiés par
 leur numéro de carte de crédit.
