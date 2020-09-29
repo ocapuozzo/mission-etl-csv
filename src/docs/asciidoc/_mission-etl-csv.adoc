@@ -77,30 +77,30 @@ le type de fusion à appliquer.
 Le `README.adoc` de votre projet hébergé sur GitLab.com fera office
 de rapport de projet.
 
-==== Branche de tests unitaire
+* Présentation de votre branche de tests unitaire
 
 Votre rapport (README.adoc de votre projet) devra présenter des exemples de tests unitaires de fusions
 séquetielles et entrelacées, avec comme données d'entrée les fichiers `small-french-client.csv` et `small-german-client.csv`.
 
-==== Opérations de fusion en tant que service injecté
+* Opération de fusion en tant que service injecté
 
-Les opérations de fusions (function) seront placées dans une classe à part,
+Les opérations liées à la fusion (des méthodes/fonctions) seront placées dans une classe à part,
 en vue d'une utilisation par injection de service dans un contrôleur.
 
 Ressource : https://symfony.com/doc/current/service_container.html
 
 Votre rapport présentera vos travaux dans ce sens (algorithme, et méthode d'injection utilisée)
 
-==== Gestion du upload
+* Gestion du upload
 
 Les fichiers à fusionner sont transmis par l'utilisateur gestionnaire.
 Un gestionnaire est un utilisateur ayant des droits spécifiques - l'habilitation,
-bien que nécessaire, n'est pas requise dans cette mission, mais bien venue (selon la taille des équipes)
+bien que nécessaire, n'est pas requise dans cette mission, mais bienvenue (selon la taille des équipes)
 
 Votre rapport présentera vos travaux dans ce sens (compréhension de la gestion de l'upload dans le
 cadre d'une applications web multi-utilisateurs)
 
-==== Gestion du download
+* Gestion du download
 
 In fine, le cas d'utilisation "fusion" (après le upload des 2 fichiers à fusionner) produira un certain nombre de
 résultats: statistiques, données en erreur, et bien entendu le CSV fruit de la fusion téléchargeable (type MIME  `text/csv`).
@@ -143,8 +143,8 @@ au modèle (3 tables : `client`, `vehicule` et `marque`).
 
 ====
 
-TIP: Le champ `vehicle` sera donc de type entité `Vehicule`, idem pour `Marque`.
-Vous aurez besoin de vous référerer à cette ressource qui explique comment
+TIP: Le champ `vehicle`  de `Client` sera donc de type entité `Vehicule`, idem pour `Marque`.
+Vous aurez besoin de vous référerer au lien ci-dessous qui explique comment
 réaliser cela à travers un exemple (`Product *----\-> 1 Category`) : https://symfony.com/doc/current/doctrine/associations.html
 
 Le mapping Objet-Relationnel permettra de représenter les données métier liées, dans la base de données, par des clés étrangères.
@@ -158,6 +158,7 @@ et `Marque (id=3  nom:"Ford")`
 
 * Conception de la partie *Model* (ajout d'entités)
 * Lien avec un serveur de base de données (MySql)
+* Conception d'une fonction ELT (_Extract Transform Load_).
 * Conception d'un contrôleur dédiè à la fonction ELT (_Extract Transform Load_). Mise au point
 d'un scénario utilisateur intégrant des règles de validation (robustesse de l'application)
 
@@ -172,6 +173,16 @@ seront tirées de la base de donnes.
 
 * (optionnel) Une fonction d'export de données client serait
 appréciée (format à déterminer).
+
+
+== Livraison
+
+La date de livraison est : *vendredi 16 octobre 2020 - 23h59*
+
+Vous déposerez, dans le dossier personnel d'un des membres du groupe sur vinsio.fr, une version *pdf* de votre
+rapport (rappel : README.adoc de votre projet sur gitlab.com)
+
+TIP: Via PHPStorm, ouvrir votre README.adoc, puis `View|Appearence|Enter Presentation Mode` (c’est un mode WYSIWYG), le menu du haut dispose d’une commande d’export PDF.
 
 
 
@@ -209,13 +220,3 @@ image:csv-exemple.png[csv exemple wikipedia]
 
 TIP: Les fichiers CSV sont, par défaut, ouverts par des logiciels tableur (Calc, Excel...).
 C'est une source de confusion des utilisateurs lambda, confondant `CSV` avec ... Excel.
-
-== Livraison
-
-La date de livraison est : *vendredi 16 octobre 2020 - 23h59*
-
-Vous déposerez, dans le dossier personnel d'un des membres du groupe sur vinsio.fr, une version *pdf* de votre
-rapport (rappel : README.adoc de votre projet sur gitlab.com)
-
-TIP: Via PHPStorm, ouvrir votre README.adoc, puis `View|Appearence|Enter Presentation Mode` (c’est un mode WYSIWYG), le menu du haut dispose d’une commande d’export PDF.
-

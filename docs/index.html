@@ -39,10 +39,13 @@
 <li><a href="#deuxième-partie-etl">Deuxième partie : ETL</a>
 <ul class="sectlevel3">
 <li><a href="#ce-qui-est-attendu-à-l-issue-de-la-seconde-partie">Ce qui est attendu à l&#8217;issue de la seconde partie</a></li>
+</ul>
+</li>
+<li><a href="#livraison">Livraison</a>
+<ul class="sectlevel3">
 <li><a href="#annexe-format-csv">Annexe Format CSV</a></li>
 </ul>
 </li>
-<li><a href="#livraison">Livraison</a></li>
 </ul>
 </li>
 </ul>
@@ -171,17 +174,26 @@ le type de fusion à appliquer.</p>
 <p>Le <code>README.adoc</code> de votre projet hébergé sur GitLab.com fera office
 de rapport de projet.</p>
 </div>
-<div class="sect4">
-<h5 id="branche-de-tests-unitaire"><a class="anchor" href="#branche-de-tests-unitaire"></a>Branche de tests unitaire</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Présentation de votre branche de tests unitaire</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p>Votre rapport (README.adoc de votre projet) devra présenter des exemples de tests unitaires de fusions
 séquetielles et entrelacées, avec comme données d&#8217;entrée les fichiers <code>small-french-client.csv</code> et <code>small-german-client.csv</code>.</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Opération de fusion en tant que service injecté</p>
+</li>
+</ul>
 </div>
-<div class="sect4">
-<h5 id="opérations-de-fusion-en-tant-que-service-injecté"><a class="anchor" href="#opérations-de-fusion-en-tant-que-service-injecté"></a>Opérations de fusion en tant que service injecté</h5>
 <div class="paragraph">
-<p>Les opérations de fusions (function) seront placées dans une classe à part,
+<p>Les opérations liées à la fusion (des méthodes/fonctions) seront placées dans une classe à part,
 en vue d&#8217;une utilisation par injection de service dans un contrôleur.</p>
 </div>
 <div class="paragraph">
@@ -190,25 +202,32 @@ en vue d&#8217;une utilisation par injection de service dans un contrôleur.</p>
 <div class="paragraph">
 <p>Votre rapport présentera vos travaux dans ce sens (algorithme, et méthode d&#8217;injection utilisée)</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Gestion du upload</p>
+</li>
+</ul>
 </div>
-<div class="sect4">
-<h5 id="gestion-du-upload"><a class="anchor" href="#gestion-du-upload"></a>Gestion du upload</h5>
 <div class="paragraph">
 <p>Les fichiers à fusionner sont transmis par l&#8217;utilisateur gestionnaire.
 Un gestionnaire est un utilisateur ayant des droits spécifiques - l&#8217;habilitation,
-bien que nécessaire, n&#8217;est pas requise dans cette mission, mais bien venue (selon la taille des équipes)</p>
+bien que nécessaire, n&#8217;est pas requise dans cette mission, mais bienvenue (selon la taille des équipes)</p>
 </div>
 <div class="paragraph">
 <p>Votre rapport présentera vos travaux dans ce sens (compréhension de la gestion de l&#8217;upload dans le
 cadre d&#8217;une applications web multi-utilisateurs)</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Gestion du download</p>
+</li>
+</ul>
 </div>
-<div class="sect4">
-<h5 id="gestion-du-download"><a class="anchor" href="#gestion-du-download"></a>Gestion du download</h5>
 <div class="paragraph">
 <p>In fine, le cas d&#8217;utilisation "fusion" (après le upload des 2 fichiers à fusionner) produira un certain nombre de
 résultats: statistiques, données en erreur, et bien entendu le CSV fruit de la fusion téléchargeable (type MIME  <code>text/csv</code>).</p>
-</div>
 </div>
 </div>
 </div>
@@ -238,8 +257,8 @@ au modèle (3 tables : <code>client</code>, <code>vehicule</code> et <code>marqu
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Le champ <code>vehicle</code> sera donc de type entité <code>Vehicule</code>, idem pour <code>Marque</code>.
-Vous aurez besoin de vous référerer à cette ressource qui explique comment
+Le champ <code>vehicle</code>  de <code>Client</code> sera donc de type entité <code>Vehicule</code>, idem pour <code>Marque</code>.
+Vous aurez besoin de vous référerer au lien ci-dessous qui explique comment
 réaliser cela à travers un exemple (<code>Product *-----&gt; 1 Category</code>) : <a href="https://symfony.com/doc/current/doctrine/associations.html" class="bare">https://symfony.com/doc/current/doctrine/associations.html</a>
 </td>
 </tr>
@@ -262,6 +281,9 @@ et <code>Marque (id=3  nom:"Ford")</code></p>
 </li>
 <li>
 <p>Lien avec un serveur de base de données (MySql)</p>
+</li>
+<li>
+<p>Conception d&#8217;une fonction ELT (<em>Extract Transform Load</em>).</p>
 </li>
 <li>
 <p>Conception d&#8217;un contrôleur dédiè à la fonction ELT (<em>Extract Transform Load</em>). Mise au point
@@ -297,6 +319,28 @@ appréciée (format à déterminer).</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="livraison"><a class="anchor" href="#livraison"></a>Livraison</h3>
+<div class="paragraph">
+<p>La date de livraison est : <strong>vendredi 16 octobre 2020 - 23h59</strong></p>
+</div>
+<div class="paragraph">
+<p>Vous déposerez, dans le dossier personnel d&#8217;un des membres du groupe sur vinsio.fr, une version <strong>pdf</strong> de votre
+rapport (rappel : README.adoc de votre projet sur gitlab.com)</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Via PHPStorm, ouvrir votre README.adoc, puis <code>View|Appearence|Enter Presentation Mode</code> (c’est un mode WYSIWYG), le menu du haut dispose d’une commande d’export PDF.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="annexe-format-csv"><a class="anchor" href="#annexe-format-csv"></a>Annexe Format CSV</h4>
@@ -349,28 +393,6 @@ C&#8217;est une source de confusion des utilisateurs lambda, confondant <code>CS
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="livraison"><a class="anchor" href="#livraison"></a>Livraison</h3>
-<div class="paragraph">
-<p>La date de livraison est : <strong>vendredi 16 octobre 2020 - 23h59</strong></p>
-</div>
-<div class="paragraph">
-<p>Vous déposerez, dans le dossier personnel d&#8217;un des membres du groupe sur vinsio.fr, une version <strong>pdf</strong> de votre
-rapport (rappel : README.adoc de votre projet sur gitlab.com)</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Via PHPStorm, ouvrir votre README.adoc, puis <code>View|Appearence|Enter Presentation Mode</code> (c’est un mode WYSIWYG), le menu du haut dispose d’une commande d’export PDF.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
