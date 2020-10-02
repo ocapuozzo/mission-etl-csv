@@ -186,7 +186,7 @@ TIP: Via PHPStorm, ouvrir votre README.adoc, puis `View|Appearence|Enter Present
 
 
 
-=== Annexe Format CSV
+== Annexe Format CSV
 
 Il existe plusieurs solutions pour que 2 systèmes puissent communiquer des données,
 indépendamment de leur implémentation interne spécifique (structure, encodage). La plupart du
