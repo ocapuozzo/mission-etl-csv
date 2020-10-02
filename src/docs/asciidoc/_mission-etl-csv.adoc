@@ -177,7 +177,7 @@ appréciée (format à déterminer).
 
 == Livraison
 
-La date de livraison est : *vendredi 16 octobre 2020 - 23h59*
+La date de livraison est : *dimanche 18 octobre 2020 - 23h59*
 
 Vous déposerez, dans le dossier personnel d'un des membres du groupe sur vinsio.fr, une version *pdf* de votre
 rapport (rappel : README.adoc de votre projet sur gitlab.com)
