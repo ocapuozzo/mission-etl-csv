@@ -78,11 +78,9 @@ Le `README.adoc` de votre projet hébergé sur GitLab.com fera office
 de rapport de projet.
 
 * Présentation de votre branche de *tests unitaires* couvrant :
-
 ** les fusions séquetielles et entrelacées, avec comme données d'entrée les fichiers `small-french-client.csv` et
 `small-german-client.csv`.
 ** les extractions de clients pour données incorrectes
-
 
 * Opération de fusion en tant que service injecté
 
