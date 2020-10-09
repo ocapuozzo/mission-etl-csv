@@ -7,7 +7,7 @@
 <meta name="generator" content="Asciidoctor 1.5.6.1">
 <meta name="description" content="Aborder un exemple de traitement sur des données CSV">
 <meta name="author" content="O. Capuozzo">
-<title>Projet en développement logiciel</title>
+<title>SparkLine : projet en développement logiciel</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <link rel="stylesheet" href="./asciidoctor.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -15,7 +15,7 @@
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Projet en développement logiciel</h1>
+<h1>SparkLine : projet en développement logiciel</h1>
 <div class="details">
 <span id="author" class="author">O. Capuozzo</span><br>
 <span id="revnumber">version 1.2,</span>
@@ -26,7 +26,7 @@
 <div id="toctitle">Table des matieres</div>
 <ul class="sectlevel1">
 <li><a href="#présentation">Présentation</a></li>
-<li><a href="#spark-line">SPARK-LINE</a>
+<li><a href="#_sparkline">SparkLine</a>
 <ul class="sectlevel2">
 <li><a href="#contexte">Contexte</a></li>
 <li><a href="#première-partie-fusion">Première partie : Fusion</a>
@@ -42,7 +42,14 @@
 </ul>
 </li>
 <li><a href="#livraison">Livraison</a></li>
-<li><a href="#annexe-format-csv">Annexe Format CSV</a></li>
+<li><a href="#annexes">Annexes</a>
+<ul class="sectlevel3">
+<li><a href="#format-csv">Format CSV</a></li>
+<li><a href="#bom">BOM</a></li>
+<li><a href="#choisir-un-composant-d-exploitation-csv">Choisir un composant d&#8217;exploitation CSV</a></li>
+</ul>
+</li>
+<li><a href="#extrait-de-la-rfc-4180">Extrait de la RFC 4180</a></li>
 </ul>
 </li>
 </ul>
@@ -62,19 +69,19 @@ de préférence sous la forme d&#8217;une application web à base de framework.<
 </div>
 </div>
 <div class="sect1">
-<h2 id="spark-line"><a class="anchor" href="#spark-line"></a>SPARK-LINE</h2>
+<h2 id="_sparkline"><a class="anchor" href="#_sparkline"></a>SparkLine</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="contexte"><a class="anchor" href="#contexte"></a>Contexte</h3>
 <div class="paragraph">
 <p>La société de service dans laquelle vous travaillez a comme client l&#8217;entreprise SPARK-LINE, createur de ligne
-de vêtements. Cette société souhaite constituer un fichier client unique, au format CSV,
-à partir de deux fichiers d&#8217;exportation transmis par ses filiales Française et Allemande. Ces fichiers sont : <code>french-client.csv</code> (~3000 clients) et <code>german-client.csv</code>
+de vêtements.Cette société souhaite constituer un fichier client unique, au format CSV,
+à partir de deux fichiers d&#8217;exportation transmis par ses filiales Française et Allemande.Ces fichiers sont : <code>french-client.csv</code> (~3000 clients) et <code>german-client.csv</code>
 (~2000 clients).</p>
 </div>
 <div class="paragraph">
 <p>Le fichier résultant sera composé d&#8217;un sous-ensemble des colonnes existantes (projection) et une sélection de lignes
-sera effectuée  (sélection des personnes majeures uniquement).</p>
+sera effectuée (sélection des personnes majeures uniquement).</p>
 </div>
 <div class="paragraph">
 <p>Dans un second temps, le service R&amp;D de la société SPARK-LINE souhaite obtenir ces données sous la forme
@@ -344,7 +351,9 @@ Via PHPStorm, ouvrir votre README.adoc, puis <code>View|Appearence|Enter Present
 </div>
 </div>
 <div class="sect2">
-<h3 id="annexe-format-csv"><a class="anchor" href="#annexe-format-csv"></a>Annexe Format CSV</h3>
+<h3 id="annexes"><a class="anchor" href="#annexes"></a>Annexes</h3>
+<div class="sect3">
+<h4 id="format-csv"><a class="anchor" href="#format-csv"></a>Format CSV</h4>
 <div class="paragraph">
 <p>Il existe plusieurs solutions pour que 2 systèmes puissent communiquer des données,
 indépendamment de leur implémentation interne spécifique (structure, encodage). La plupart du
@@ -394,6 +403,313 @@ C&#8217;est une source de confusion des utilisateurs lambda, confondant <code>CS
 </tr>
 </table>
 </div>
+<div class="sect4">
+<h5 id="principes-d-exploitation-d-un-fichier-csv"><a class="anchor" href="#principes-d-exploitation-d-un-fichier-csv"></a>Principes d&#8217;exploitation d&#8217;un fichier CSV</h5>
+<div class="paragraph">
+<p>Voici l&#8217;algorithme générique de lecture d&#8217;un fichier texte de type CSV :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>(1) Ouvrir le fichier en lecture / ou écriture (création du fichier possible)
+(2) Tentative de lecture de la première ligne
+(3) TantQue nous obtenons une ligne
+(4)     Faire quelque chose avec la ligne en question
+(5)     Tentative de lecture de la prochaine ligne
+    FTQ
+(6) Fermeture du fichier</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/algo-php-csv.png" alt="exemple lecture csv en php"></span></p>
+</div>
+<div class="paragraph">
+<p>À l&#8217;image d&#8217;un curseur qui avance à chaque nouveau caractère injecté dans un texte
+(par l&#8217;action d&#8217;une touche sur le clavier), la fonction <code>fget</code> « consomme » le contenu
+du fichier (fait avancer le curseur de lecture, après chaque lecture de ligne) jusqu&#8217;à atteindre la fin du fichier.</p>
+</div>
+<div class="paragraph">
+<p>Voir la documentation en ligne de la fonction <code>fgetcsv</code> : <a href="http://php.net/manual/fr/function.fgetcsv.php" class="bare">http://php.net/manual/fr/function.fgetcsv.php</a></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="exercice"><a class="anchor" href="#exercice"></a>Exercice</h5>
+<div class="paragraph">
+<p>Voici un exemple de lecture d&#8217;un fichier CSV, proposé par la communauté PHP (aide en ligne)</p>
+</div>
+<div class="paragraph">
+<p>Reportez sur la colonne de gauche, le numéro d&#8217;étape de l&#8217;algorithme générique de lecture.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/exercice-lecture-csv-php.png" alt="exercice algo php"></span></p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="bom"><a class="anchor" href="#bom"></a>BOM</h4>
+<div class="paragraph">
+<p>Parceque les fichiers CSV sont des fichiers "texte" (par opposition au fichier "binaire"), il est nécessaire de savoir
+que ce type de fichier peut intégrer une méta-donnée, nommée <code>BOM</code> dans les tous premiers octets.</p>
+</div>
+<div class="paragraph">
+<p><strong>BOM</strong> (de l&#8217;anglais <em>Byte Order Mark</em>, parfois traduit en français par <em>indicateur d&#8217;ordre des octets</em>) est une donnée qui indique l&#8217;utilisation d&#8217;un
+encodage unicode ainsi que l&#8217;ordre des octets. Cette donnée est situé au début de certains fichiers texte.</p>
+</div>
+<div class="paragraph">
+<p>La donnée du BOM, lorsqu&#8217;elle est correctement traitée, est transparente pour les utilisateurs lambda,
+dans le cas contraire où la séquence de BOM est traitée comme du texte, elle apprarait
+souvent sous cette forme : <code>ï»¿</code> et peut alors perturber certains traitements.</p>
+</div>
+<div class="paragraph">
+<p>Voir plus loin : <a href="https://fr.wikipedia.org/wiki/Indicateur_d%27ordre_des_octets" class="bare">https://fr.wikipedia.org/wiki/Indicateur_d%27ordre_des_octets</a></p>
+</div>
+<div class="paragraph">
+<p>Les 2 fonctions de cette donnée optionnelle, placée en tête des fichiers texte renseigne :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Unicode : UTF-8, UTF-16, UTF-32, &#8230;&#8203;</p>
+</li>
+<li>
+<p>Ordre des octets : big ou little indian. Concerne la représentation mémoire de groupes d&#8217;octets : les
+représentations de poids fort sont-elles en premier ou en dernier ? (voir : <a href="https://fr.wikipedia.org/wiki/Boutisme" class="bare">https://fr.wikipedia.org/wiki/Boutisme</a>)</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. Exemples de BOM</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Information de codage</th>
+<th class="tableblock halign-left valign-top">Séquence d&#8217;octets de BOM (hexa)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UTF-8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EF BB BF</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UTF-16 Big Endian</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FE FF</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UTF-16 Little Endian</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FF FE</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UTF-32 Big Endian</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">00 00 FE FF</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UTF-32 Little Endian</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FF FE 00 00</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UTF-EBCDIC</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DD 73 66 73</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Le standard Unicode n&#8217;impose pas BOM pour les fichiers texte, mais le permet ; c&#8217;est le cas en particulier pour UTF-8, où l&#8217;indicateur est facultatif. (voir : <a href="https://fr.wikipedia.org/wiki/Indicateur_d%27ordre_des_octets" class="bare">https://fr.wikipedia.org/wiki/Indicateur_d%27ordre_des_octets</a> )</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+L&#8217;acceptabilité de BOM dépend des protocoles utilisés. À des fins d&#8217;interopérabilité, les logiciels ont tendance à le reconnaître lorsqu&#8217;il est présent, et les utilisateurs à l&#8217;enlever lorsqu&#8217;il n&#8217;est pas reconnu par un logiciel.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Remarque, voici une commande pour connaître l&#8217;encodage de votre système (<em>big endian</em> ou <em>little endian</em> ?) :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="python">python -c <span class="string"><span class="delimiter">&quot;</span><span class="content">import sys; print(sys.byteorder)</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choisir-un-composant-d-exploitation-csv"><a class="anchor" href="#choisir-un-composant-d-exploitation-csv"></a>Choisir un composant d&#8217;exploitation CSV</h4>
+<div class="paragraph">
+<p>En PHP, les fonctions <code>fgetcsv</code> et <code>fputcsv</code> sont qualifiées de relativement « bas niveau ».
+L’usage de ces fonctions nécessite de prendre quelques précautions
+comme l’encodage des fichiers à exploiter, la présence de BOM, le format de fin de ligne, etc. Autant de paramètres qui, normalement, sont pris en charge par des composants dédiés, et il y en a plus d’un !</p>
+</div>
+<div class="paragraph">
+<p>Voir les composants disponibles via <code>composer</code> : <a href="https://packagist.org/?query=csv" class="bare">https://packagist.org/?query=csv</a></p>
+</div>
+<div class="paragraph">
+<p>À la date de cette recherche (7 octobre 2020), on ne compte pas moins de 627 composants !  Il est donc nécessaire de considérer des critères de sélection.</p>
+</div>
+<div class="paragraph">
+<p><strong>Critères de sélection communs les plus courants</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Nombre de téléchargements</p>
+</li>
+<li>
+<p>Nombre d’étoiles</p>
+</li>
+<li>
+<p>Dépendances (requires)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Critères indirects</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Nombre d’applications dépendantes</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Critères spécifiques à la fonction</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Charge mémoire</p>
+</li>
+<li>
+<p>Style de programmation (procédurale vs événementielle)</p>
+</li>
+<li>
+<p>Prise en compte d’autres formats (import/export)</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Selon la taille des fichiers à manipuler, le critère de charge mémoire peut être déterminant.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<div class="title">Exemple de recherche CSV sur packagist (trié)</div>
+<p><span class="image"><img src="images/packagist.png" alt="packagist"></span></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="extrait-de-la-rfc-4180"><a class="anchor" href="#extrait-de-la-rfc-4180"></a>Extrait de la RFC 4180</h3>
+<div class="paragraph">
+<p>(<a href="https://tools.ietf.org/html/rfc4180" class="bare">https://tools.ietf.org/html/rfc4180</a> )</p>
+</div>
+<div class="paragraph">
+<p>Definition of the CSV Format
+While there are various specifications and implementations for the
+CSV format, there is no formal specification in existence&#8230;&#8203; but :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each record is located on a separate line, delimited by a line
+break (CRLF).  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>aaa,bbb,ccc CRLF
+zzz,yyy,xxx CRLF</pre>
+</div>
+</div>
+</li>
+<li>
+<p>The last record in the file may or may not have an ending line
+break.  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>aaa,bbb,ccc CRLF
+zzz,yyy,xxx</pre>
+</div>
+</div>
+</li>
+<li>
+<p>There maybe an optional header line appearing as the first line
+of the file with the same format as normal record lines.  This
+header will contain names corresponding to the fields in the file
+and should contain the same number of fields as the records in
+the rest of the file (the presence or absence of the header line
+should be indicated via the optional "header" parameter of this
+MIME type).  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>field_name,field_name,field_name CRLF
+aaa,bbb,ccc CRLF
+zzz,yyy,xxx CRLF</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Within the header and each record, there may be one or more
+fields, separated by commas.  Each line should contain the same
+number of fields throughout the file.  Spaces are considered part
+of a field and should not be ignored.  The last field in the
+record must not be followed by a comma.  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>aaa,bbb,ccc</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Each field may or may not be enclosed in double quotes (however
+some programs, such as Microsoft Excel, do not use double quotes
+at all).  If fields are not enclosed with double quotes, then
+double quotes may not appear inside the fields.  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>"aaa","bbb","ccc" CRLF
+zzz,yyy,xxx</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Fields containing line breaks (CRLF), double quotes, and commas
+should be enclosed in double-quotes.  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>"aaa","b CRLF
+bb","ccc" CRLF
+zzz,yyy,xxx</pre>
+</div>
+</div>
+</li>
+<li>
+<p>If double-quotes are used to enclose fields, then a double-quote
+appearing inside a field must be escaped by preceding it with
+another double quote.  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>"aaa","b""bb","ccc"</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
@@ -401,7 +717,7 @@ C&#8217;est une source de confusion des utilisateurs lambda, confondant <code>CS
 <div id="footer">
 <div id="footer-text">
 Version 1.2<br>
-Last updated 2020-09-23 07:33:43 CEST
+Last updated 2020-10-02 14:22:56 CEST
 </div>
 </div>
 </body>

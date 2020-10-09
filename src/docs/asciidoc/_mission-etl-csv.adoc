@@ -1,4 +1,5 @@
-= SPARK-LINE
+[#_sparkline]
+= SparkLine
 ifndef::backend-pdf[]
 :imagesdir: images
 endif::[]
@@ -6,12 +7,12 @@ endif::[]
 == Contexte
 
 La société de service dans laquelle vous travaillez a comme client l'entreprise SPARK-LINE, createur de ligne
-de vêtements. Cette société souhaite constituer un fichier client unique, au format CSV,
-à partir de deux fichiers d'exportation transmis par ses filiales Française et Allemande. Ces fichiers sont : `french-client.csv` (~3000 clients) et `german-client.csv`
+de vêtements.Cette société souhaite constituer un fichier client unique, au format CSV,
+à partir de deux fichiers d'exportation transmis par ses filiales Française et Allemande.Ces fichiers sont : `french-client.csv` (~3000 clients) et `german-client.csv`
 (~2000 clients).
 
 Le fichier résultant sera composé d'un sous-ensemble des colonnes existantes (projection) et une sélection de lignes
-sera effectuée  (sélection des personnes majeures uniquement).
+sera effectuée (sélection des personnes majeures uniquement).
 
 Dans un second temps, le service R&D de la société SPARK-LINE souhaite obtenir ces données sous la forme
 d'une base de données relationnelle.
@@ -186,7 +187,9 @@ TIP: Via PHPStorm, ouvrir votre README.adoc, puis `View|Appearence|Enter Present
 
 
 
-== Annexe Format CSV
+== Annexes
+
+=== Format CSV
 
 Il existe plusieurs solutions pour que 2 systèmes puissent communiquer des données,
 indépendamment de leur implémentation interne spécifique (structure, encodage). La plupart du
@@ -220,3 +223,180 @@ image:csv-exemple.png[csv exemple wikipedia]
 
 TIP: Les fichiers CSV sont, par défaut, ouverts par des logiciels tableur (Calc, Excel...).
 C'est une source de confusion des utilisateurs lambda, confondant `CSV` avec ... Excel.
+
+
+==== Principes d'exploitation d'un fichier CSV
+
+Voici l'algorithme générique de lecture d'un fichier texte de type CSV :
+
+----
+(1) Ouvrir le fichier en lecture / ou écriture (création du fichier possible)
+(2) Tentative de lecture de la première ligne
+(3) TantQue nous obtenons une ligne
+(4)     Faire quelque chose avec la ligne en question
+(5)     Tentative de lecture de la prochaine ligne
+    FTQ
+(6) Fermeture du fichier
+----
+
+image:algo-php-csv.png[exemple lecture csv en php]
+
+À l'image d'un curseur qui avance à chaque nouveau caractère injecté dans un texte
+(par l'action d'une touche sur le clavier), la fonction `fget` « consomme » le contenu
+du fichier (fait avancer le curseur de lecture, après chaque lecture de ligne) jusqu'à atteindre la fin du fichier.
+
+Voir la documentation en ligne de la fonction `fgetcsv` : http://php.net/manual/fr/function.fgetcsv.php
+
+==== Exercice
+
+Voici un exemple de lecture d'un fichier CSV, proposé par la communauté PHP (aide en ligne)
+
+Reportez sur la colonne de gauche, le numéro d'étape de l'algorithme générique de lecture.
+
+image:exercice-lecture-csv-php.png[exercice algo php]
+
+=== BOM
+
+Parceque les fichiers CSV sont des fichiers "texte" (par opposition au fichier "binaire"), il est nécessaire de savoir
+que ce type de fichier peut intégrer une méta-donnée, nommée `BOM` dans les tous premiers octets.
+
+*BOM* (de l'anglais _Byte Order Mark_, parfois traduit en français par _indicateur d'ordre des octets_) est une donnée qui indique l'utilisation d'un
+encodage unicode ainsi que l'ordre des octets. Cette donnée est situé au début de certains fichiers texte.
+
+La donnée du BOM, lorsqu'elle est correctement traitée, est transparente pour les utilisateurs lambda,
+dans le cas contraire où la séquence de BOM est traitée comme du texte, elle apprarait
+souvent sous cette forme : `ï»¿` et peut alors perturber certains traitements.
+
+Voir plus loin : https://fr.wikipedia.org/wiki/Indicateur_d%27ordre_des_octets
+
+Les 2 fonctions de cette donnée optionnelle, placée en tête des fichiers texte renseigne :
+
+* Unicode : UTF-8, UTF-16, UTF-32, ...
+* Ordre des octets : big ou little indian. Concerne la représentation mémoire de groupes d'octets : les
+représentations de poids fort sont-elles en premier ou en dernier ? (voir : https://fr.wikipedia.org/wiki/Boutisme)
+
+[cols="1,2", options="header"]
+.Exemples de BOM
+|===
+|Information de codage
+|Séquence d'octets de BOM (hexa)
+
+|UTF-8
+|EF BB BF
+
+|UTF-16 Big Endian
+|FE FF
+|UTF-16 Little Endian
+|FF FE
+|UTF-32 Big Endian
+|00 00 FE FF
+|UTF-32 Little Endian
+|FF FE 00 00
+|UTF-EBCDIC
+|DD 73 66 73
+
+|===
+
+Le standard Unicode n'impose pas BOM pour les fichiers texte, mais le permet ; c'est le cas en particulier pour UTF-8, où l'indicateur est facultatif. (voir : https://fr.wikipedia.org/wiki/Indicateur_d%27ordre_des_octets )
+
+TIP: L'acceptabilité de BOM dépend des protocoles utilisés. À des fins d'interopérabilité, les logiciels ont tendance à le reconnaître lorsqu'il est présent, et les utilisateurs à l'enlever lorsqu'il n'est pas reconnu par un logiciel.
+
+Remarque, voici une commande pour connaître l'encodage de votre système (_big endian_ ou _little endian_ ?) :
+
+```python
+python -c "import sys; print(sys.byteorder)"
+```
+
+=== Choisir un composant d'exploitation CSV
+
+En PHP, les fonctions `fgetcsv` et `fputcsv` sont qualifiées de relativement « bas niveau ».
+L’usage de ces fonctions nécessite de prendre quelques précautions
+comme l’encodage des fichiers à exploiter, la présence de BOM, le format de fin de ligne, etc. Autant de paramètres qui, normalement, sont pris en charge par des composants dédiés, et il y en a plus d’un !
+
+Voir les composants disponibles via `composer` : https://packagist.org/?query=csv
+
+À la date de cette recherche (7 octobre 2020), on ne compte pas moins de 627 composants !  Il est donc nécessaire de considérer des critères de sélection.
+
+*Critères de sélection communs les plus courants*
+
+- Nombre de téléchargements
+- Nombre d’étoiles
+- Dépendances (requires)
+
+*Critères indirects*
+
+- Nombre d’applications dépendantes
+
+*Critères spécifiques à la fonction*
+
+- Charge mémoire
+- Style de programmation (procédurale vs événementielle)
+- Prise en compte d’autres formats (import/export)
+- ...
+
+
+TIP: Selon la taille des fichiers à manipuler, le critère de charge mémoire peut être déterminant.
+
+.Exemple de recherche CSV sur packagist (trié)
+image:packagist.png[packagist]
+
+== Extrait de la RFC 4180
+
+(https://tools.ietf.org/html/rfc4180 )
+
+Definition of the CSV Format
+While there are various specifications and implementations for the
+CSV format, there is no formal specification in existence... but :
+
+1.  Each record is located on a separate line, delimited by a line
+break (CRLF).  For example:
+
+       aaa,bbb,ccc CRLF
+       zzz,yyy,xxx CRLF
+
+2.  The last record in the file may or may not have an ending line
+break.  For example:
+
+       aaa,bbb,ccc CRLF
+       zzz,yyy,xxx
+
+3.  There maybe an optional header line appearing as the first line
+of the file with the same format as normal record lines.  This
+header will contain names corresponding to the fields in the file
+and should contain the same number of fields as the records in
+the rest of the file (the presence or absence of the header line
+should be indicated via the optional "header" parameter of this
+MIME type).  For example:
+
+       field_name,field_name,field_name CRLF
+       aaa,bbb,ccc CRLF
+       zzz,yyy,xxx CRLF
+
+4.  Within the header and each record, there may be one or more
+fields, separated by commas.  Each line should contain the same
+number of fields throughout the file.  Spaces are considered part
+of a field and should not be ignored.  The last field in the
+record must not be followed by a comma.  For example:
+
+       aaa,bbb,ccc
+
+5.  Each field may or may not be enclosed in double quotes (however
+some programs, such as Microsoft Excel, do not use double quotes
+at all).  If fields are not enclosed with double quotes, then
+double quotes may not appear inside the fields.  For example:
+
+       "aaa","bbb","ccc" CRLF
+       zzz,yyy,xxx
+
+6.  Fields containing line breaks (CRLF), double quotes, and commas
+should be enclosed in double-quotes.  For example:
+
+       "aaa","b CRLF
+       bb","ccc" CRLF
+       zzz,yyy,xxx
+
+7.  If double-quotes are used to enclose fields, then a double-quote
+appearing inside a field must be escaped by preceding it with
+another double quote.  For example:
+
+       "aaa","b""bb","ccc"
