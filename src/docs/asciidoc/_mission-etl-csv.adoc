@@ -217,13 +217,10 @@ break – CRLF), la dernière ligne pouvant en être exemptée.
 image:csv-exemple.png[csv exemple wikipedia]
 => Attention : la première ligne désignant les "entêtes de colonne" est optionnelle.
 
-
 => Format CSV en détails : https://tools.ietf.org/html/rfc4180
-
 
 TIP: Les fichiers CSV sont, par défaut, ouverts par des logiciels tableur (Calc, Excel...).
 C'est une source de confusion des utilisateurs lambda, confondant `CSV` avec ... Excel.
-
 
 ==== Principes d'exploitation d'un fichier CSV
 
@@ -340,7 +337,7 @@ TIP: Selon la taille des fichiers à manipuler, le critère de charge mémoire p
 .Exemple de recherche CSV sur packagist (trié)
 image:packagist.png[packagist]
 
-== Extrait de la RFC 4180
+=== Extrait de la RFC 4180
 
 (https://tools.ietf.org/html/rfc4180 )
 
