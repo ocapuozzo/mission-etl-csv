@@ -160,8 +160,7 @@ et `Marque (id=3  nom:"Ford")`
 * Conception de la partie *Model* (ajout d'entités)
 * Lien avec un serveur de base de données (MySql)
 * Conception d'une fonction ELT (_Extract Transform Load_).
-* Conception d'un contrôleur dédiè à la fonction ELT (_Extract Transform Load_). Mise au point
-d'un scénario utilisateur intégrant des règles de validation (robustesse de l'application)
+* Application de la fonction ETL dans un contrôleur. Mise au point d'un scénario utilisateur intégrant des règles de validation (robustesse de l'application)
 
 IMPORTANT: L'utilisateur pourra être en mesure de renouveller son action avec de nouvelles données ou des
 données mises à jours. **Le chargement de nouvelles données ne devra pas générer de doublons dans la base de données**.
@@ -336,6 +335,13 @@ TIP: Selon la taille des fichiers à manipuler, le critère de charge mémoire p
 
 .Exemple de recherche CSV sur packagist (trié)
 image:packagist.png[packagist]
+
+
+=== Exemple de gestion d'upload avec Symfony
+
+Un code simple mais bien détaillé, avec une dose de sécurité :
+http://zetcode.com/symfony/uploadfile/
+
 
 === Extrait de la RFC 4180
 
