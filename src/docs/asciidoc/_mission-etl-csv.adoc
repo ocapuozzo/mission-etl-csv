@@ -180,7 +180,7 @@ appréciée (format à déterminer).
 La date de livraison est : *dimanche 18 octobre 2020 - 23h59*
 
 Vous déposerez, dans le dossier personnel d'un des membres du groupe sur vinsio.fr, une version *pdf* de votre
-rapport (rappel : README.adoc de votre projet sur gitlab.com)
+rapport, *dans les mêmes conditions que _GuessWath_* (rappel : README.adoc de votre projet sur gitlab.com)
 
 TIP: Via PHPStorm, ouvrir votre README.adoc, puis `View|Appearence|Enter Presentation Mode` (c’est un mode WYSIWYG), le menu du haut dispose d’une commande d’export PDF.
 
