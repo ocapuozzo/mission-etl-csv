@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 2.0.10">
 <meta name="description" content="Aborder un exemple de traitement sur des données CSV">
 <meta name="author" content="O. Capuozzo">
 <title>SparkLine : projet en développement logiciel</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <link rel="stylesheet" href="./asciidoctor.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-<link rel="stylesheet" href="./coderay-asciidoctor.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -33,12 +32,12 @@
 <ul class="sectlevel3">
 <li><a href="#informations-transmises-par-spark-line">Informations transmises par SPARK-LINE</a></li>
 <li><a href="#informations-techniques">Informations techniques</a></li>
-<li><a href="#ce-qui-est-attendu-à-l-issue-de-la-première-partie">Ce qui est attendu à l&#8217;issue de la première partie</a></li>
+<li><a href="#ce-qui-est-attendu-à-lissue-de-la-première-partie">Ce qui est attendu à l&#8217;issue de la première partie</a></li>
 </ul>
 </li>
 <li><a href="#deuxième-partie-etl">Deuxième partie : ETL</a>
 <ul class="sectlevel3">
-<li><a href="#ce-qui-est-attendu-à-l-issue-de-la-seconde-partie">Ce qui est attendu à l&#8217;issue de la seconde partie</a></li>
+<li><a href="#ce-qui-est-attendu-à-lissue-de-la-seconde-partie">Ce qui est attendu à l&#8217;issue de la seconde partie</a></li>
 </ul>
 </li>
 <li><a href="#livraison">Livraison</a></li>
@@ -46,8 +45,8 @@
 <ul class="sectlevel3">
 <li><a href="#format-csv">Format CSV</a></li>
 <li><a href="#bom">BOM</a></li>
-<li><a href="#choisir-un-composant-d-exploitation-csv">Choisir un composant d&#8217;exploitation CSV</a></li>
-<li><a href="#exemple-de-gestion-d-upload-avec-symfony">Exemple de gestion d&#8217;upload avec Symfony</a></li>
+<li><a href="#choisir-un-composant-dexploitation-csv">Choisir un composant d&#8217;exploitation CSV</a></li>
+<li><a href="#exemple-de-gestion-dupload-avec-symfony">Exemple de gestion d&#8217;upload avec Symfony</a></li>
 <li><a href="#extrait-de-la-rfc-4180">Extrait de la RFC 4180</a></li>
 </ul>
 </li>
@@ -174,7 +173,7 @@ le type de fusion à appliquer.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="ce-qui-est-attendu-à-l-issue-de-la-première-partie"><a class="anchor" href="#ce-qui-est-attendu-à-l-issue-de-la-première-partie"></a>Ce qui est attendu à l&#8217;issue de la première partie</h4>
+<h4 id="ce-qui-est-attendu-à-lissue-de-la-première-partie"><a class="anchor" href="#ce-qui-est-attendu-à-lissue-de-la-première-partie"></a>Ce qui est attendu à l&#8217;issue de la première partie</h4>
 <div class="paragraph">
 <p>Le <code>README.adoc</code> de votre projet hébergé sur GitLab.com fera office
 de rapport de projet.</p>
@@ -247,9 +246,9 @@ Le département R&amp;D souhaite disposer d&#8217;un modèle de donnée suivant 
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/diag-f1e5b68af145d3cc46bc233990d406af.png" alt="Schema conceptuel client-auto" width="639" height="89">
+<img src="images/diag-435f894f5917b53d541bb4fcb53c0d69.png" alt="Diagram" width="638" height="88">
 </div>
-<div class="title">Schema conceptuel client-auto</div>
+<div class="title">Figure 1. Schema conceptuel client-auto</div>
 </div>
 <div class="paragraph">
 <p>Votre mission consiste, à partir d&#8217;un fichier client CSV issu de la fusion (partie 1), et transmis par
@@ -281,7 +280,7 @@ et <code>Marque (id=3  nom:"Ford")</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="ce-qui-est-attendu-à-l-issue-de-la-seconde-partie"><a class="anchor" href="#ce-qui-est-attendu-à-l-issue-de-la-seconde-partie"></a>Ce qui est attendu à l&#8217;issue de la seconde partie</h4>
+<h4 id="ce-qui-est-attendu-à-lissue-de-la-seconde-partie"><a class="anchor" href="#ce-qui-est-attendu-à-lissue-de-la-seconde-partie"></a>Ce qui est attendu à l&#8217;issue de la seconde partie</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -384,8 +383,10 @@ cellules du tableau.</p>
 break – CRLF), la dernière ligne pouvant en être exemptée.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="images/csv-exemple.png" alt="csv exemple wikipedia"></span>
-&#8658; Attention : la première ligne désignant les "entêtes de colonne" est optionnelle.</p>
+<p><span class="image"><img src="images/csv-exemple.png" alt="csv exemple wikipedia"></span></p>
+</div>
+<div class="paragraph">
+<p>&#8658; Attention : la première ligne désignant les "entêtes de colonne" est optionnelle.</p>
 </div>
 <div class="paragraph">
 <p>&#8658; Format CSV en détails : <a href="https://tools.ietf.org/html/rfc4180" class="bare">https://tools.ietf.org/html/rfc4180</a></p>
@@ -404,7 +405,7 @@ C&#8217;est une source de confusion des utilisateurs lambda, confondant <code>CS
 </table>
 </div>
 <div class="sect4">
-<h5 id="principes-d-exploitation-d-un-fichier-csv"><a class="anchor" href="#principes-d-exploitation-d-un-fichier-csv"></a>Principes d&#8217;exploitation d&#8217;un fichier CSV</h5>
+<h5 id="principes-dexploitation-dun-fichier-csv"><a class="anchor" href="#principes-dexploitation-dun-fichier-csv"></a>Principes d&#8217;exploitation d&#8217;un fichier CSV</h5>
 <div class="paragraph">
 <p>Voici l&#8217;algorithme générique de lecture d&#8217;un fichier texte de type CSV :</p>
 </div>
@@ -476,7 +477,7 @@ représentations de poids fort sont-elles en premier ou en dernier ? (voir : <a 
 </li>
 </ul>
 </div>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Exemples de BOM</caption>
 <colgroup>
 <col style="width: 33.3333%;">
@@ -540,7 +541,7 @@ L&#8217;acceptabilité de BOM dépend des protocoles utilisés. À des fins d&#8
 </div>
 </div>
 <div class="sect3">
-<h4 id="choisir-un-composant-d-exploitation-csv"><a class="anchor" href="#choisir-un-composant-d-exploitation-csv"></a>Choisir un composant d&#8217;exploitation CSV</h4>
+<h4 id="choisir-un-composant-dexploitation-csv"><a class="anchor" href="#choisir-un-composant-dexploitation-csv"></a>Choisir un composant d&#8217;exploitation CSV</h4>
 <div class="paragraph">
 <p>En PHP, les fonctions <code>fgetcsv</code> et <code>fputcsv</code> sont qualifiées de relativement « bas niveau ».
 L’usage de ces fonctions nécessite de prendre quelques précautions
@@ -615,10 +616,12 @@ Selon la taille des fichiers à manipuler, le critère de charge mémoire peut �
 </div>
 </div>
 <div class="sect3">
-<h4 id="exemple-de-gestion-d-upload-avec-symfony"><a class="anchor" href="#exemple-de-gestion-d-upload-avec-symfony"></a>Exemple de gestion d&#8217;upload avec Symfony</h4>
+<h4 id="exemple-de-gestion-dupload-avec-symfony"><a class="anchor" href="#exemple-de-gestion-dupload-avec-symfony"></a>Exemple de gestion d&#8217;upload avec Symfony</h4>
 <div class="paragraph">
-<p>Un code simple mais bien détaillé, avec une dose de sécurité :
-<a href="http://zetcode.com/symfony/uploadfile/" class="bare">http://zetcode.com/symfony/uploadfile/</a></p>
+<p>Un code simple mais bien détaillé, avec une dose de sécurité</p>
+</div>
+<div class="paragraph">
+<p><a href="http://zetcode.com/symfony/uploadfile/" class="bare">http://zetcode.com/symfony/uploadfile/</a></p>
 </div>
 </div>
 <div class="sect3">
@@ -724,8 +727,9 @@ another double quote.  For example:</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.2<br>
-Last updated 2020-10-02 14:22:56 CEST
+Last updated 2020-10-02 14:22:56 +0200
 </div>
 </div>
+<link rel="stylesheet" href="./coderay-asciidoctor.css">
 </body>
 </html>

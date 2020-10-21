@@ -214,6 +214,7 @@ Une ligne est une suite ordonnée de caractères terminée par un caractère de 
 break – CRLF), la dernière ligne pouvant en être exemptée.
 
 image:csv-exemple.png[csv exemple wikipedia]
+
 => Attention : la première ligne désignant les "entêtes de colonne" est optionnelle.
 
 => Format CSV en détails : https://tools.ietf.org/html/rfc4180
@@ -339,7 +340,8 @@ image:packagist.png[packagist]
 
 === Exemple de gestion d'upload avec Symfony
 
-Un code simple mais bien détaillé, avec une dose de sécurité :
+Un code simple mais bien détaillé, avec une dose de sécurité
+
 http://zetcode.com/symfony/uploadfile/
 
 

@@ -10,11 +10,11 @@
     <properties>
         <project.slides.directory>${project.build.directory}/generated-slides</project.slides.directory>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
+        <asciidoctor.maven.plugin.version>2.1.0</asciidoctor.maven.plugin.version>
         <asciidoctorj.pdf.version>1.5.0-alpha.16</asciidoctorj.pdf.version>
-        <asciidoctorj.version>1.5.6</asciidoctorj.version>
-        <asciidoctorj.diagram.version>1.5.4.1</asciidoctorj.diagram.version>
-        <jruby.version>9.1.8.0</jruby.version>
+        <asciidoctorj.version>2.1.0</asciidoctorj.version>
+        <asciidoctorj.diagram.version>2.0.5</asciidoctorj.diagram.version>
+        <jruby.version>9.2.13.0</jruby.version>
         <rubygems.prawn.version>2.1.0</rubygems.prawn.version>
         <revealjs.version>3.4.1</revealjs.version>
         <asciidoctor-revealjs.version>master</asciidoctor-revealjs.version>
@@ -218,7 +218,6 @@
                         <configuration>
                             <backend>pdf</backend>
                             <outputDirectory>${project.build.directory}/pdf</outputDirectory>
-                            <sourceHighlighter>rouge</sourceHighlighter>
                             <doctype>article</doctype>
                             <attributes>
                                 <imagesdir>${project.build.directory}/generated-docs/images</imagesdir>
@@ -229,6 +228,7 @@
                                 <toc>macro</toc>
                                 <idprefix/>
                                 <idseparator>-</idseparator>
+                                <source-highlighter>rouge</source-highlighter>
                             </attributes>
                         </configuration>
                     </execution>
@@ -240,7 +240,7 @@
                         </goals>
                         <configuration>
                             <backend>html5</backend>
-                            <sourceHighlighter>coderay</sourceHighlighter>
+                            <!--sourceHighlighter>coderay</sourceHighlighter -->
                             <!--
                             Scenarios for linking vs embedding assets:
 
