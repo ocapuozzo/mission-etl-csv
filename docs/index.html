@@ -25,13 +25,13 @@
 <div id="toctitle">Table des matieres</div>
 <ul class="sectlevel1">
 <li><a href="#présentation">Présentation</a></li>
-<li><a href="#_sparkline">SparkLine</a>
+<li><a href="#_sparkline">Vetux-Line</a>
 <ul class="sectlevel2">
 <li><a href="#contexte">Contexte</a></li>
-<li><a href="#première-partie-fusion">Première partie : Fusion</a>
+<li><a href="#première-partie-fusion">Première partie : Fusion++</a>
 <ul class="sectlevel3">
-<li><a href="#informations-transmises-par-spark-line">Informations transmises par SPARK-LINE</a></li>
-<li><a href="#informations-techniques">Informations techniques</a></li>
+<li><a href="#les-actions-de-fusion">Les actions de Fusion++</a></li>
+<li><a href="#informations-techniques-de-votre-chef-de-projet">Informations techniques de votre chef de projet</a></li>
 <li><a href="#ce-qui-est-attendu-à-lissue-de-la-première-partie">Ce qui est attendu à l&#8217;issue de la première partie</a></li>
 </ul>
 </li>
@@ -47,7 +47,6 @@
 <li><a href="#bom">BOM</a></li>
 <li><a href="#choisir-un-composant-dexploitation-csv">Choisir un composant d&#8217;exploitation CSV</a></li>
 <li><a href="#exemple-de-gestion-dupload-avec-symfony">Exemple de gestion d&#8217;upload avec Symfony</a></li>
-<li><a href="#extrait-de-la-rfc-4180">Extrait de la RFC 4180</a></li>
 </ul>
 </li>
 </ul>
@@ -69,35 +68,42 @@ de préférence sous la forme d&#8217;une application web à base de framework.<
 </div>
 </div>
 <div class="sect1">
-<h2 id="_sparkline"><a class="anchor" href="#_sparkline"></a>SparkLine</h2>
+<h2 id="_sparkline"><a class="anchor" href="#_sparkline"></a>Vetux-Line</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="contexte"><a class="anchor" href="#contexte"></a>Contexte</h3>
 <div class="paragraph">
-<p>La société de service dans laquelle vous travaillez a comme client l&#8217;entreprise SPARK-LINE, createur de ligne
-de vêtements.Cette société souhaite constituer un fichier client unique, au format CSV,
-à partir de deux fichiers d&#8217;exportation transmis par ses filiales Française et Allemande.Ces fichiers sont : <code>french-client.csv</code> (~3000 clients) et <code>german-client.csv</code>
-(~2000 clients).</p>
+<p>La société de service dans laquelle vous travaillez a comme client l&#8217;entreprise VETUX-LINE, createur de ligne de vêtements.</p>
 </div>
 <div class="paragraph">
-<p>Le fichier résultant sera composé d&#8217;un sous-ensemble des colonnes existantes (projection) et une sélection de lignes
-sera effectuée (sélection des personnes majeures uniquement).</p>
+<p>La société VETUX-LINE reçoit de la part de ses partenaires, tous les mois, 2 fichiers clients au format CSV.</p>
 </div>
 <div class="paragraph">
-<p>Dans un second temps, le service R&amp;D de la société SPARK-LINE souhaite obtenir ces données sous la forme
-d&#8217;une base de données relationnelle.</p>
+<p>Afin d&#8217;exploiter ces fichiers partenaires, VETUX-LINE souhaite disposer d&#8217;un outil (une application) lui permettant de fusionner ces 2 fichiers en un fichier unique.</p>
+</div>
+<div class="paragraph">
+<p>La société nous communique des exemples de fichiers reçus. Ces fichiers sont :  <a href="french-data.csv"><code>french-client.csv</code></a> (~3000 clients) et <a href="german-data.csv"><code>german-client.csv</code></a> (~2000 clients). Ces fichiers ont même structure (même type et nombre de colonnes).</p>
+</div>
+<div class="paragraph">
+<p>Les fichiers reçus contiennent plus d&#8217;information que nécessaire. Le fichier résultant de la fusion sera composé d&#8217;un sous-ensemble des colonnes existantes (appelé projection) et une sélection de lignes sera effectuée (sélection des personnes majeures uniquement, suppression de doublons&#8230;&#8203;). La demande du client est détaillée plus loin dans ce document.</p>
+</div>
+<div class="paragraph">
+<p>Dans un second temps (seconde partie de la mission), le service R&amp;D de la société VETUX-LINE souhaite obtenir ces données sous la forme d&#8217;une base de données relationnelle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="première-partie-fusion"><a class="anchor" href="#première-partie-fusion"></a>Première partie : Fusion</h3>
+<h3 id="première-partie-fusion"><a class="anchor" href="#première-partie-fusion"></a>Première partie : Fusion++</h3>
 <div class="paragraph">
-<p>Les fichiers sources : <a href="french-data.csv"><code>french-client.csv</code></a> (~3000 clients) et
-<a href="german-data.csv"><code>german-client.csv</code></a> (~2000 clients) ont même structure (même type de colonnes)</p>
+<p>Votre mission consiste à concevoir une application web qui, à partir de 2 fichiers CSV transmis à l&#8217;application par un des gestionnaire de l&#8217;entreprise, produira un fichier CSV (nommé <code>french-german-client[date de creation].csv</code>).</p>
 </div>
 <div class="paragraph">
-<p>Le fichier CSV attendu, de nom <code>french-german-client.csv</code>, ne sera pas constitué de toutes ces colonnes (projection)
-et de tous les enregistrements (sélection des personnes majeures uniquement).</p>
+<p>Ce service ne sera disponible qu&#8217;aux gestionnaires de VETUX-LINE.</p>
 </div>
+<div class="paragraph">
+<p>Le fichier CSV attendu, de nom <code>french-german-client[date de creation].csv</code>, sera constitué d&#8217;une partie seulement des colonnes existantes (projection) ainsi que d&#8217;une sélection de ligne (personnes majeures uniquement).</p>
+</div>
+<div class="sect3">
+<h4 id="les-actions-de-fusion"><a class="anchor" href="#les-actions-de-fusion"></a>Les actions de Fusion++</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -108,45 +114,40 @@ et de tous les enregistrements (sélection des personnes majeures uniquement).</
 nom, prénom, email, date de naissance, num tel, CCType, CCNumber, CVV2, CCExpires, adresse physique (plusieurs colonnes), taille, poids, véhicule, coordonnées GPS.</p>
 </li>
 <li>
-<p><strong>Sélection</strong> : seules les personnes majeures à la date de création du fichier devront être
+<p><strong>Sélection</strong> :</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>seules les personnes <strong>majeures</strong> à la date de création du fichier devront être
 sélectionnées.</p>
 </li>
-</ul>
-</div>
-<div class="sect3">
-<h4 id="informations-transmises-par-spark-line"><a class="anchor" href="#informations-transmises-par-spark-line"></a>Informations transmises par SPARK-LINE</h4>
-<div class="ulist">
-<ul>
 <li>
-<p>Certains clients ont des incohérences de valeurs entre la taille en inch et celle en cm.
-Il faudra donc extraire ces clients du fichier résultat.</p>
+<p>prise en compte de la <strong>Contrainte-de-taille</strong>. Certains clients ont des incohérences de valeurs entre la taille en inch et celle en cm. Il faudra donc extraire ces clients du fichier résultat.</p>
 </li>
-</ul>
-</div>
-<div class="ulist">
-<ul>
 <li>
-<p>Des doublons sur le numéro de carte de crédit se sont glissés dans les données, ce
+<p>prise en compte de la <strong>Contrainte-de-ccn</strong> Des doublons sur le numéro de carte de crédit se sont glissés dans les données, ce
 qui remet en cause l&#8217;intégrité des données sur certains clients (dans le système en question, une carte de
-crédit ne peut être partagée). Nous vous demandons donc d&#8217;extraire les clients ne pouvant pas être identifiés par
-leur numéro de carte de crédit.</p>
+crédit ne peut être partagée). Nous vous demandons donc d&#8217;extraire les clients ne pouvant pas être identifiés par leur numéro de carte de crédit.</p>
+</li>
+</ol>
+</div>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="informations-techniques"><a class="anchor" href="#informations-techniques"></a>Informations techniques</h4>
+<h4 id="informations-techniques-de-votre-chef-de-projet"><a class="anchor" href="#informations-techniques-de-votre-chef-de-projet"></a>Informations techniques de votre chef de projet</h4>
 <div class="sect4">
 <h5 id="masse-des-données-à-traiter"><a class="anchor" href="#masse-des-données-à-traiter"></a>Masse des données à traiter</h5>
 <div class="paragraph">
-<p>La masse d’information à traiter (~5000 clients) n’aide pas à la mise au point au cours de la première phase de développement.
-Il est alors souhaitable de constituer des données de tests afin réduire, <strong>dans un premier temps</strong>,
+<p>La masse d’information à traiter (~5000 clients) n’aide pas à la mise au point au cours de la première phase de développement.</p>
+</div>
+<div class="paragraph">
+<p>Il est alors souhaitable de constituer des données de tests afin de réduire, <strong>dans un premier temps</strong>,
 le volume des données à traiter.</p>
 </div>
 <div class="paragraph">
-<p>Par exemple travailler avec un dizaine de clients suffit pour commencer. Par convention, vous nommerez ces fichiers
-<code>small-french-client.csv</code> (6 clients) et <code>small-german-client.csv</code>
-(4 clients) - ces fichiers sont à créer.</p>
+<p>Par exemple travailler avec une vingtaine de clients suffit pour commencer. Par convention, vous nommerez ces fichiers <code>small-french-client.csv</code> (12 clients) et <code>small-german-client.csv</code> (8 clients) - ces fichiers sont à créer (dans le cas général, ces fichiers n&#8217;ont pas le même nombre de lignes)</p>
 </div>
 </div>
 <div class="sect4">
@@ -167,44 +168,45 @@ Fic B : ° °</pre>
 <p><span class="image"><img src="images/fusion-types.png" alt="types de fusion"></span></p>
 </div>
 <div class="paragraph">
-<p>À ce stade, le client n’a pas manifesté de critère de tri. Vous proposerez donc à l&#8217;utilisateur la possibilité de choisir
-le type de fusion à appliquer.</p>
+<p>À ce stade, le client n’a pas manifesté de critère de tri. Votre application devra donc proposerer à l&#8217;utilisateur la possibilité de choisir le type de fusion à appliquer.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="ce-qui-est-attendu-à-lissue-de-la-première-partie"><a class="anchor" href="#ce-qui-est-attendu-à-lissue-de-la-première-partie"></a>Ce qui est attendu à l&#8217;issue de la première partie</h4>
 <div class="paragraph">
-<p>Le <code>README.adoc</code> de votre projet hébergé sur GitLab.com fera office
+<p>Le <code>README.adoc ou .md</code> de votre projet hébergé sur un dépôt GIT distant fera office
 de rapport de projet.</p>
+</div>
+<div class="paragraph">
+<p>Les opérations liées à la fusion (des méthodes/fonctions) seront placées dans une <strong>classe à part</strong>,
+en vue d&#8217;une utilisation par <strong>injection de service</strong> dans un de vos contrôleurs.</p>
+</div>
+<div class="paragraph">
+<p>L&#8217;injection de service est une opération fortement facilité par Symfony (c&#8217;est lui qui se charge de l&#8217;injection).</p>
+</div>
+<div class="paragraph">
+<p>Ressource à étudier : les 2 premiers chapitres de : <a href="https://symfony.com/doc/current/service_container.html" class="bare">https://symfony.com/doc/current/service_container.html</a> (durée : ~20mn) - Vous apprendrez à créer un service (<code>MessageGenerator</code>) et à l&#8217;utiliser dans un contrôleur, bien suffisant pour commencer.</p>
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p>Opérations de fusion en tant que <strong>service injecté</strong> tenant compte des contraintes de taille et de ccn.</p>
+</li>
 <li>
 <p>Présentation de votre branche de <strong>tests unitaires</strong> couvrant :</p>
 <div class="ulist">
 <ul>
 <li>
-<p>les fusions séquetielles et entrelacées, avec comme données d&#8217;entrée les fichiers <code>small-french-client.csv</code> et
-<code>small-german-client.csv</code>.</p>
+<p>les fusions++ séquetielles et entrelacées, avec comme données d&#8217;entrée les fichiers <code>small-french-client.csv</code> et <code>small-german-client.csv</code>.</p>
 </li>
 <li>
-<p>les extractions de clients pour données incorrectes</p>
+<p>les extractions des clients pour données incorrectes</p>
 </li>
 </ul>
 </div>
 </li>
-<li>
-<p>Opération de fusion en tant que service injecté</p>
-</li>
 </ul>
-</div>
-<div class="paragraph">
-<p>Les opérations liées à la fusion (des méthodes/fonctions) seront placées dans une classe à part,
-en vue d&#8217;une utilisation par injection de service dans un contrôleur.</p>
-</div>
-<div class="paragraph">
-<p>Ressource : <a href="https://symfony.com/doc/current/service_container.html" class="bare">https://symfony.com/doc/current/service_container.html</a></p>
 </div>
 <div class="paragraph">
 <p>Votre rapport présentera vos travaux dans ce sens (algorithme, et méthode d&#8217;injection utilisée)</p>
@@ -217,9 +219,10 @@ en vue d&#8217;une utilisation par injection de service dans un contrôleur.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Les fichiers à fusionner sont transmis par l&#8217;utilisateur gestionnaire.
-Un gestionnaire est un utilisateur ayant des droits spécifiques - l&#8217;habilitation,
-bien que nécessaire, n&#8217;est pas requise dans cette mission, mais bienvenue (selon la taille des équipes)</p>
+<p>Les fichiers à traiter sont transmis par l&#8217;utilisateur gestionnaire.</p>
+</div>
+<div class="paragraph">
+<p>Un gestionnaire est un utilisateur ayant des droits spécifiques.</p>
 </div>
 <div class="paragraph">
 <p>Votre rapport présentera vos travaux dans ce sens (compréhension de la gestion de l&#8217;upload dans le
@@ -233,15 +236,21 @@ cadre d&#8217;une applications web multi-utilisateurs)</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>In fine, le cas d&#8217;utilisation "fusion" (après le upload des 2 fichiers à fusionner) produira un certain nombre de
-résultats: statistiques, données en erreur, et bien entendu le CSV fruit de la fusion téléchargeable (type MIME  <code>text/csv</code>).</p>
+<p>In fine, le cas d&#8217;utilisation "fusion++" (après le upload des 2 fichiers à traiter) produira le fichier CSV attendu (type MIME  <code>text/csv</code>) et certaines autres données : statistiques, clients en erreur.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Prise en compte de un ou plus scénarios à risque, formulés sous la forme simple d&#8217;un <em>Evil User Stories</em> et leur <strong>contre-mesure</strong>.  Voir exemple ici :  <a href="https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/" class="bare">https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="deuxième-partie-etl"><a class="anchor" href="#deuxième-partie-etl"></a>Deuxième partie : ETL</h3>
 <div class="paragraph">
-<p>L&#8217;entreprise SPARK-LINE envisage de se lancer dans des produits en liens avec l&#8217;automobile.
+<p>L&#8217;entreprise VETUX-LINE envisage de se lancer dans des produits en liens avec l&#8217;automobile.
 Le département R&amp;D souhaite disposer d&#8217;un modèle de donnée suivant :</p>
 </div>
 <div class="imageblock">
@@ -251,9 +260,17 @@ Le département R&amp;D souhaite disposer d&#8217;un modèle de donnée suivant 
 <div class="title">Figure 1. Schema conceptuel client-auto</div>
 </div>
 <div class="paragraph">
-<p>Votre mission consiste, à partir d&#8217;un fichier client CSV issu de la fusion (partie 1), et transmis par
-l&#8217;utilisateur (upload), de peupler une base de données de tests correspondant
-au modèle (3 tables : <code>client</code>, <code>vehicule</code> et <code>marque</code>).</p>
+<p>Votre mission consiste, à partir d&#8217;un fichier client CSV issu de la fusion (partie 1), transmis par
+l&#8217;utilisateur (upload), de peupler une base de données de tests correspondant au schéma conceptuel ci-dessus.</p>
+</div>
+<div class="paragraph">
+<p>Pour cela vous définirez le modèle conceptel du domaine par un ensemble des entités métier (des classe <code>entity</code>).</p>
+</div>
+<div class="paragraph">
+<p>Votre travail préalable consiste à étudier comment réaliser les relations entre vos objets du domaine.</p>
+</div>
+<div class="paragraph">
+<p>Étude : <a href="https://symfony.com/doc/current/doctrine/associations.html" class="bare">https://symfony.com/doc/current/doctrine/associations.html</a> vous explique comment réaliser le type de lien <code>ManyToOne</code> à travers un exemple (<code>Product *-----&gt; 1 Category</code>) (un produit est classé dans une seule catégorie, et une catégorie peut regrouper de nombreux produits)</p>
 </div>
 <div class="exampleblock">
 <div class="content">
@@ -264,9 +281,7 @@ au modèle (3 tables : <code>client</code>, <code>vehicule</code> et <code>marqu
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Le champ <code>vehicle</code>  de <code>Client</code> sera donc de type entité <code>Vehicule</code>, idem pour <code>Marque</code>.
-Vous aurez besoin de vous référerer au lien ci-dessous qui explique comment
-réaliser cela à travers un exemple (<code>Product *-----&gt; 1 Category</code>) : <a href="https://symfony.com/doc/current/doctrine/associations.html" class="bare">https://symfony.com/doc/current/doctrine/associations.html</a>
+Attention, à l&#8217;issue de cette étude, vous devrez comprendre que le champ <code>categoy</code>  de <code>Product</code> est une référence à un objet de type <code>Category</code> et non à un id de type integer (FK).
 </td>
 </tr>
 </table>
@@ -295,6 +310,9 @@ et <code>Marque (id=3  nom:"Ford")</code></p>
 <li>
 <p>Application de la fonction ETL dans un contrôleur. Mise au point d&#8217;un scénario utilisateur intégrant des règles de validation (robustesse de l&#8217;application)</p>
 </li>
+<li>
+<p>Prise en compte de un ou plus scénarios à risque, formulés sous la forme simple d&#8217;un <em>Evil User Stories</em> et leur <strong>contre-mesure</strong>.  Voir exemple ici :  <a href="https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/" class="bare">https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/</a></p>
+</li>
 </ul>
 </div>
 <div class="admonitionblock important">
@@ -306,7 +324,6 @@ et <code>Marque (id=3  nom:"Ford")</code></p>
 <td class="content">
 L&#8217;utilisateur pourra être en mesure de renouveller son action avec de nouvelles données ou des
 données mises à jours. <strong>Le chargement de nouvelles données ne devra pas générer de doublons dans la base de données</strong>.
-À ce titre, la présence de tests unitaires s&#8217;assurant du respect de cette règle est attendue.
 </td>
 </tr>
 </table>
@@ -320,8 +337,7 @@ seront tirées de la base de donnes.
 À vous de proposer une vue adaptée pour le service R&amp;D.</p>
 </li>
 <li>
-<p>(optionnel) Une fonction d&#8217;export de données client serait
-appréciée (format à déterminer).</p>
+<p>(optionnel) Une fonction d&#8217;export de données client serait appréciée (format à déterminer).</p>
 </li>
 </ul>
 </div>
@@ -330,23 +346,14 @@ appréciée (format à déterminer).</p>
 <div class="sect2">
 <h3 id="livraison"><a class="anchor" href="#livraison"></a>Livraison</h3>
 <div class="paragraph">
-<p>La date de livraison est : <strong>dimanche 18 octobre 2020 - 23h59</strong></p>
+<p>La date de livraison est : <strong>dimanche 24 octobre 2021 - 23h59</strong></p>
 </div>
 <div class="paragraph">
-<p>Vous déposerez, dans le dossier personnel d&#8217;un des membres du groupe sur vinsio.fr, une version <strong>pdf</strong> de votre
-rapport, <strong>dans les mêmes conditions que <em>GuessWath</em></strong> (rappel : README.adoc de votre projet sur gitlab.com)</p>
+<p>Vous communiquerez, par un des membres du groupe - les autres en CC, une version <strong>pdf</strong> de votre rapport.
+Le fichier sera constitué du nom de la team.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Via PHPStorm, ouvrir votre README.adoc, puis <code>View|Appearence|Enter Presentation Mode</code> (c’est un mode WYSIWYG), le menu du haut dispose d’une commande d’export PDF.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Votre rapport sera <strong>daté</strong>, comportera le nom de tous les collaborateurs de la team ainsi qu&#8217;un lien vers l&#8217;ennoncé de la mission (ce doc) et un autre vers votre projet hébergé. Rappel, votre rapport est le  README de votre projet.</p>
 </div>
 </div>
 <div class="sect2">
@@ -405,6 +412,102 @@ C&#8217;est une source de confusion des utilisateurs lambda, confondant <code>CS
 </table>
 </div>
 <div class="sect4">
+<h5 id="extrait-de-la-rfc-4180"><a class="anchor" href="#extrait-de-la-rfc-4180"></a>Extrait de la RFC 4180</h5>
+<div class="paragraph">
+<p>(<a href="https://tools.ietf.org/html/rfc4180" class="bare">https://tools.ietf.org/html/rfc4180</a> )</p>
+</div>
+<div class="paragraph">
+<p>Definition of the CSV Format
+While there are various specifications and implementations for the
+CSV format, there is no formal specification in existence&#8230;&#8203; but :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each record is located on a separate line, delimited by a line
+break (CRLF).  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>aaa,bbb,ccc CRLF
+zzz,yyy,xxx CRLF</pre>
+</div>
+</div>
+</li>
+<li>
+<p>The last record in the file may or may not have an ending line
+break.  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>aaa,bbb,ccc CRLF
+zzz,yyy,xxx</pre>
+</div>
+</div>
+</li>
+<li>
+<p>There maybe an optional header line appearing as the first line
+of the file with the same format as normal record lines.  This
+header will contain names corresponding to the fields in the file
+and should contain the same number of fields as the records in
+the rest of the file (the presence or absence of the header line
+should be indicated via the optional "header" parameter of this
+MIME type).  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>field_name,field_name,field_name CRLF
+aaa,bbb,ccc CRLF
+zzz,yyy,xxx CRLF</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Within the header and each record, there may be one or more
+fields, separated by commas.  Each line should contain the same
+number of fields throughout the file.  Spaces are considered part
+of a field and should not be ignored.  The last field in the
+record must not be followed by a comma.  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>aaa,bbb,ccc</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Each field may or may not be enclosed in double quotes (however
+some programs, such as Microsoft Excel, do not use double quotes
+at all).  If fields are not enclosed with double quotes, then
+double quotes may not appear inside the fields.  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>"aaa","bbb","ccc" CRLF
+zzz,yyy,xxx</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Fields containing line breaks (CRLF), double quotes, and commas
+should be enclosed in double-quotes.  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>"aaa","b CRLF
+bb","ccc" CRLF
+zzz,yyy,xxx</pre>
+</div>
+</div>
+</li>
+<li>
+<p>If double-quotes are used to enclose fields, then a double-quote
+appearing inside a field must be escaped by preceding it with
+another double quote.  For example:</p>
+<div class="literalblock">
+<div class="content">
+<pre>"aaa","b""bb","ccc"</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
 <h5 id="principes-dexploitation-dun-fichier-csv"><a class="anchor" href="#principes-dexploitation-dun-fichier-csv"></a>Principes d&#8217;exploitation d&#8217;un fichier CSV</h5>
 <div class="paragraph">
 <p>Voici l&#8217;algorithme générique de lecture d&#8217;un fichier texte de type CSV :</p>
@@ -433,7 +536,7 @@ du fichier (fait avancer le curseur de lecture, après chaque lecture de ligne) 
 </div>
 </div>
 <div class="sect4">
-<h5 id="exercice"><a class="anchor" href="#exercice"></a>Exercice</h5>
+<h5 id="testez-vos-connaissances"><a class="anchor" href="#testez-vos-connaissances"></a>Testez vos connaissances</h5>
 <div class="paragraph">
 <p>Voici un exemple de lecture d&#8217;un fichier CSV, proposé par la communauté PHP (aide en ligne)</p>
 </div>
@@ -453,11 +556,11 @@ que ce type de fichier peut intégrer une méta-donnée, nommée <code>BOM</code
 </div>
 <div class="paragraph">
 <p><strong>BOM</strong> (de l&#8217;anglais <em>Byte Order Mark</em>, parfois traduit en français par <em>indicateur d&#8217;ordre des octets</em>) est une donnée qui indique l&#8217;utilisation d&#8217;un
-encodage unicode ainsi que l&#8217;ordre des octets. Cette donnée est situé au début de certains fichiers texte.</p>
+encodage unicode ainsi que l&#8217;ordre des octets. Cette donnée est située au début de certains fichiers texte.</p>
 </div>
 <div class="paragraph">
 <p>La donnée du BOM, lorsqu&#8217;elle est correctement traitée, est transparente pour les utilisateurs lambda,
-dans le cas contraire où la séquence de BOM est traitée comme du texte, elle apprarait
+dans le cas contraire où la séquence de BOM est traitée comme du texte, elle apparait
 souvent sous cette forme : <code>ï»¿</code> et peut alors perturber certains traitements.</p>
 </div>
 <div class="paragraph">
@@ -622,102 +725,6 @@ Selon la taille des fichiers à manipuler, le critère de charge mémoire peut �
 </div>
 <div class="paragraph">
 <p><a href="http://zetcode.com/symfony/uploadfile/" class="bare">http://zetcode.com/symfony/uploadfile/</a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="extrait-de-la-rfc-4180"><a class="anchor" href="#extrait-de-la-rfc-4180"></a>Extrait de la RFC 4180</h4>
-<div class="paragraph">
-<p>(<a href="https://tools.ietf.org/html/rfc4180" class="bare">https://tools.ietf.org/html/rfc4180</a> )</p>
-</div>
-<div class="paragraph">
-<p>Definition of the CSV Format
-While there are various specifications and implementations for the
-CSV format, there is no formal specification in existence&#8230;&#8203; but :</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Each record is located on a separate line, delimited by a line
-break (CRLF).  For example:</p>
-<div class="literalblock">
-<div class="content">
-<pre>aaa,bbb,ccc CRLF
-zzz,yyy,xxx CRLF</pre>
-</div>
-</div>
-</li>
-<li>
-<p>The last record in the file may or may not have an ending line
-break.  For example:</p>
-<div class="literalblock">
-<div class="content">
-<pre>aaa,bbb,ccc CRLF
-zzz,yyy,xxx</pre>
-</div>
-</div>
-</li>
-<li>
-<p>There maybe an optional header line appearing as the first line
-of the file with the same format as normal record lines.  This
-header will contain names corresponding to the fields in the file
-and should contain the same number of fields as the records in
-the rest of the file (the presence or absence of the header line
-should be indicated via the optional "header" parameter of this
-MIME type).  For example:</p>
-<div class="literalblock">
-<div class="content">
-<pre>field_name,field_name,field_name CRLF
-aaa,bbb,ccc CRLF
-zzz,yyy,xxx CRLF</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Within the header and each record, there may be one or more
-fields, separated by commas.  Each line should contain the same
-number of fields throughout the file.  Spaces are considered part
-of a field and should not be ignored.  The last field in the
-record must not be followed by a comma.  For example:</p>
-<div class="literalblock">
-<div class="content">
-<pre>aaa,bbb,ccc</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Each field may or may not be enclosed in double quotes (however
-some programs, such as Microsoft Excel, do not use double quotes
-at all).  If fields are not enclosed with double quotes, then
-double quotes may not appear inside the fields.  For example:</p>
-<div class="literalblock">
-<div class="content">
-<pre>"aaa","bbb","ccc" CRLF
-zzz,yyy,xxx</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Fields containing line breaks (CRLF), double quotes, and commas
-should be enclosed in double-quotes.  For example:</p>
-<div class="literalblock">
-<div class="content">
-<pre>"aaa","b CRLF
-bb","ccc" CRLF
-zzz,yyy,xxx</pre>
-</div>
-</div>
-</li>
-<li>
-<p>If double-quotes are used to enclose fields, then a double-quote
-appearing inside a field must be escaped by preceding it with
-another double quote.  For example:</p>
-<div class="literalblock">
-<div class="content">
-<pre>"aaa","b""bb","ccc"</pre>
-</div>
-</div>
-</li>
-</ol>
 </div>
 </div>
 </div>

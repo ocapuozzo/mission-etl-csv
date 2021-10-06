@@ -5,7 +5,7 @@
     <groupId>org.quizbe</groupId>
     <artifactId>projet-csv</artifactId>
     <version>1.0</version>
-    <name>Projet SparkLine</name>
+    <name>Projet VetuxLine</name>
     <description>Exemple de projet de développement logiciel - application web</description>
     <properties>
         <project.slides.directory>${project.build.directory}/generated-slides</project.slides.directory>

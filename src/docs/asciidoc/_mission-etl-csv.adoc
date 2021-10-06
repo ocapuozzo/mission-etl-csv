@@ -1,61 +1,59 @@
 [#_sparkline]
-= SparkLine
+= Vetux-Line
 ifndef::backend-pdf[]
 :imagesdir: images
 endif::[]
 
 == Contexte
 
-La société de service dans laquelle vous travaillez a comme client l'entreprise SPARK-LINE, createur de ligne
-de vêtements.Cette société souhaite constituer un fichier client unique, au format CSV,
-à partir de deux fichiers d'exportation transmis par ses filiales Française et Allemande.Ces fichiers sont : `french-client.csv` (~3000 clients) et `german-client.csv`
-(~2000 clients).
+La société de service dans laquelle vous travaillez a comme client l'entreprise VETUX-LINE, createur de ligne de vêtements.
 
-Le fichier résultant sera composé d'un sous-ensemble des colonnes existantes (projection) et une sélection de lignes
-sera effectuée (sélection des personnes majeures uniquement).
+La société VETUX-LINE reçoit de la part de ses partenaires, tous les mois, 2 fichiers clients au format CSV.
 
-Dans un second temps, le service R&D de la société SPARK-LINE souhaite obtenir ces données sous la forme
-d'une base de données relationnelle.
+Afin d'exploiter ces fichiers partenaires, VETUX-LINE souhaite disposer d'un outil (une application) lui permettant de fusionner ces 2 fichiers en un fichier unique.
 
-== Première partie : Fusion
+La société nous communique des exemples de fichiers reçus. Ces fichiers sont :  link:french-data.csv[`french-client.csv`] (~3000 clients) et link:german-data.csv[`german-client.csv`] (~2000 clients). Ces fichiers ont même structure (même type et nombre de colonnes).
 
-Les fichiers sources : link:french-data.csv[`french-client.csv`] (~3000 clients) et
-link:german-data.csv[`german-client.csv`] (~2000 clients) ont même structure (même type de colonnes)
+Les fichiers reçus contiennent plus d'information que nécessaire. Le fichier résultant de la fusion sera composé d'un sous-ensemble des colonnes existantes (appelé projection) et une sélection de lignes sera effectuée (sélection des personnes majeures uniquement, suppression de doublons...). La demande du client est détaillée plus loin dans ce document.
 
-Le fichier CSV attendu, de nom `french-german-client.csv`, ne sera pas constitué de toutes ces colonnes (projection)
-et de tous les enregistrements (sélection des personnes majeures uniquement).
+Dans un second temps (seconde partie de la mission), le service R&D de la société VETUX-LINE souhaite obtenir ces données sous la forme d'une base de données relationnelle.
+
+== Première partie : Fusion++
+
+Votre mission consiste à concevoir une application web qui, à partir de 2 fichiers CSV transmis à l'application par un des gestionnaire de l'entreprise, produira un fichier CSV (nommé `french-german-client[date de creation].csv`).
+
+Ce service ne sera disponible qu'aux gestionnaires de VETUX-LINE.
+
+Le fichier CSV attendu, de nom `french-german-client[date de creation].csv`, sera constitué d'une partie seulement des colonnes existantes (projection) ainsi que d'une sélection de ligne (personnes majeures uniquement).
+
+=== Les actions de Fusion++
 
 * **Fusion** : Obtenir un seul fichier à partir de 2 fichiers.
 
 * **Projection** : Toutes les colonnes ne sont pas concernées. Les colonnes souhaitées sont : genre, titre,
 nom, prénom, email, date de naissance, num tel, CCType, CCNumber, CVV2, CCExpires, adresse physique (plusieurs colonnes), taille, poids, véhicule, coordonnées GPS.
 
-* **Sélection** : seules les personnes majeures à la date de création du fichier devront être
+* **Sélection** :
+
+. seules les personnes *majeures* à la date de création du fichier devront être
 sélectionnées.
 
-=== Informations transmises par SPARK-LINE
+. prise en compte de la *Contrainte-de-taille*. Certains clients ont des incohérences de valeurs entre la taille en inch et celle en cm. Il faudra donc extraire ces clients du fichier résultat.
 
-* Certains clients ont des incohérences de valeurs entre la taille en inch et celle en cm.
-Il faudra donc extraire ces clients du fichier résultat.
-
-// . À la fin de la fusion, nous souhaiterions connaitre la taille moyenne des personnes majeurs selon le genre, et globalement.
-
-* Des doublons sur le numéro de carte de crédit se sont glissés dans les données, ce
+. prise en compte de la *Contrainte-de-ccn* Des doublons sur le numéro de carte de crédit se sont glissés dans les données, ce
 qui remet en cause l'intégrité des données sur certains clients (dans le système en question, une carte de
-crédit ne peut être partagée). Nous vous demandons donc d'extraire les clients ne pouvant pas être identifiés par
-leur numéro de carte de crédit.
+crédit ne peut être partagée). Nous vous demandons donc d'extraire les clients ne pouvant pas être identifiés par leur numéro de carte de crédit.
 
-=== Informations techniques
+=== Informations techniques de votre chef de projet
 
 ==== Masse des données à traiter
 
 La masse d’information à traiter (~5000 clients) n’aide pas à la mise au point au cours de la première phase de développement.
-Il est alors souhaitable de constituer des données de tests afin réduire, *dans un premier temps*,
+
+Il est alors souhaitable de constituer des données de tests afin de réduire, *dans un premier temps*,
 le volume des données à traiter.
 
-Par exemple travailler avec un dizaine de clients suffit pour commencer. Par convention, vous nommerez ces fichiers
-`small-french-client.csv` (6 clients) et `small-german-client.csv`
-(4 clients) - ces fichiers sont à créer.
+Par exemple travailler avec une vingtaine de clients suffit pour commencer. Par convention, vous nommerez ces fichiers `small-french-client.csv` (12 clients) et `small-german-client.csv` (8 clients) - ces fichiers sont à créer (dans le cas général, ces fichiers n'ont pas le même nombre de lignes)
 
 ==== Fusion entrelacée ou séquentielle ?
 
@@ -69,46 +67,48 @@ La fusion de ces 2 fichiers peut être mené par un algorithme séquentiel ou en
 
 image:fusion-types.png[types de fusion]
 
-À ce stade, le client n’a pas manifesté de critère de tri. Vous proposerez donc à l'utilisateur la possibilité de choisir
-le type de fusion à appliquer.
+À ce stade, le client n’a pas manifesté de critère de tri. Votre application devra donc proposerer à l'utilisateur la possibilité de choisir le type de fusion à appliquer.
 
 
 === Ce qui est attendu à l'issue de la première partie
 
-Le `README.adoc` de votre projet hébergé sur GitLab.com fera office
+Le `README.adoc ou .md` de votre projet hébergé sur un dépôt GIT distant fera office
 de rapport de projet.
 
+Les opérations liées à la fusion (des méthodes/fonctions) seront placées dans une *classe à part*,
+en vue d'une utilisation par *injection de service* dans un de vos contrôleurs.
+
+L'injection de service est une opération fortement facilité par Symfony (c'est lui qui se charge de l'injection).
+
+Ressource à étudier : les 2 premiers chapitres de : https://symfony.com/doc/current/service_container.html (durée : ~20mn) - Vous apprendrez à créer un service (`MessageGenerator`) et à l'utiliser dans un contrôleur, bien suffisant pour commencer.
+
+* Opérations de fusion en tant que *service injecté* tenant compte des contraintes de taille et de ccn.
+
 * Présentation de votre branche de *tests unitaires* couvrant :
-** les fusions séquetielles et entrelacées, avec comme données d'entrée les fichiers `small-french-client.csv` et
-`small-german-client.csv`.
-** les extractions de clients pour données incorrectes
-
-* Opération de fusion en tant que service injecté
-
-Les opérations liées à la fusion (des méthodes/fonctions) seront placées dans une classe à part,
-en vue d'une utilisation par injection de service dans un contrôleur.
-
-Ressource : https://symfony.com/doc/current/service_container.html
+** les fusions++ séquetielles et entrelacées, avec comme données d'entrée les fichiers `small-french-client.csv` et `small-german-client.csv`.
+** les extractions des clients pour données incorrectes
 
 Votre rapport présentera vos travaux dans ce sens (algorithme, et méthode d'injection utilisée)
 
 * Gestion du upload
 
-Les fichiers à fusionner sont transmis par l'utilisateur gestionnaire.
-Un gestionnaire est un utilisateur ayant des droits spécifiques - l'habilitation,
-bien que nécessaire, n'est pas requise dans cette mission, mais bienvenue (selon la taille des équipes)
+Les fichiers à traiter sont transmis par l'utilisateur gestionnaire.
+
+Un gestionnaire est un utilisateur ayant des droits spécifiques.
 
 Votre rapport présentera vos travaux dans ce sens (compréhension de la gestion de l'upload dans le
 cadre d'une applications web multi-utilisateurs)
 
 * Gestion du download
 
-In fine, le cas d'utilisation "fusion" (après le upload des 2 fichiers à fusionner) produira un certain nombre de
-résultats: statistiques, données en erreur, et bien entendu le CSV fruit de la fusion téléchargeable (type MIME  `text/csv`).
+In fine, le cas d'utilisation "fusion++" (après le upload des 2 fichiers à traiter) produira le fichier CSV attendu (type MIME  `text/csv`) et certaines autres données : statistiques, clients en erreur.
+
+* Prise en compte de un ou plus scénarios à risque, formulés sous la forme simple d'un _Evil User Stories_ et leur *contre-mesure*.  Voir exemple ici :  https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/
+
 
 == Deuxième partie : ETL
 
-L'entreprise SPARK-LINE envisage de se lancer dans des produits en liens avec l'automobile.
+L'entreprise VETUX-LINE envisage de se lancer dans des produits en liens avec l'automobile.
 Le département R&D souhaite disposer d'un modèle de donnée suivant :
 
 .Schema conceptuel client-auto
@@ -138,15 +138,19 @@ hide circle
 hide method
 ----
 
-Votre mission consiste, à partir d'un fichier client CSV issu de la fusion (partie 1), et transmis par
-l'utilisateur (upload), de peupler une base de données de tests correspondant
-au modèle (3 tables : `client`, `vehicule` et `marque`).
+Votre mission consiste, à partir d'un fichier client CSV issu de la fusion (partie 1), transmis par
+l'utilisateur (upload), de peupler une base de données de tests correspondant au schéma conceptuel ci-dessus.
+
+Pour cela vous définirez le modèle conceptel du domaine par un ensemble des entités métier (des classe `entity`).
+
+Votre travail préalable consiste à étudier comment réaliser les relations entre vos objets du domaine.
+
+Étude : https://symfony.com/doc/current/doctrine/associations.html vous explique comment réaliser le type de lien `ManyToOne` à travers un exemple (`Product *----\-> 1 Category`) (un produit est classé dans une seule catégorie, et une catégorie peut regrouper de nombreux produits)
+
 
 ====
 
-TIP: Le champ `vehicle`  de `Client` sera donc de type entité `Vehicule`, idem pour `Marque`.
-Vous aurez besoin de vous référerer au lien ci-dessous qui explique comment
-réaliser cela à travers un exemple (`Product *----\-> 1 Category`) : https://symfony.com/doc/current/doctrine/associations.html
+TIP: Attention, à l'issue de cette étude, vous devrez comprendre que le champ `categoy`  de `Product` est une référence à un objet de type `Category` et non à un id de type integer (FK).
 
 Le mapping Objet-Relationnel permettra de représenter les données métier liées, dans la base de données, par des clés étrangères.
 Exemple :
@@ -161,29 +165,27 @@ et `Marque (id=3  nom:"Ford")`
 * Lien avec un serveur de base de données (MySql)
 * Conception d'une fonction ELT (_Extract Transform Load_).
 * Application de la fonction ETL dans un contrôleur. Mise au point d'un scénario utilisateur intégrant des règles de validation (robustesse de l'application)
+* Prise en compte de un ou plus scénarios à risque, formulés sous la forme simple d'un _Evil User Stories_ et leur *contre-mesure*.  Voir exemple ici :  https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/
 
 IMPORTANT: L'utilisateur pourra être en mesure de renouveller son action avec de nouvelles données ou des
 données mises à jours. **Le chargement de nouvelles données ne devra pas générer de doublons dans la base de données**.
-À ce titre, la présence de tests unitaires s'assurant du respect de cette règle est attendue.
 
 * Une représentation graphique de données statistiques (répartition des marques
 parmi les clients) est attendue sur le tiers client. Les données exploitées pour cette représentation
 seront tirées de la base de donnes.
 À vous de proposer une vue adaptée pour le service R&D.
 
-* (optionnel) Une fonction d'export de données client serait
-appréciée (format à déterminer).
+* (optionnel) Une fonction d'export de données client serait appréciée (format à déterminer).
 
 
 == Livraison
 
-La date de livraison est : *dimanche 18 octobre 2020 - 23h59*
+La date de livraison est : *dimanche 24 octobre 2021 - 23h59*
 
-Vous déposerez, dans le dossier personnel d'un des membres du groupe sur vinsio.fr, une version *pdf* de votre
-rapport, *dans les mêmes conditions que _GuessWath_* (rappel : README.adoc de votre projet sur gitlab.com)
+Vous communiquerez, par un des membres du groupe - les autres en CC, une version *pdf* de votre rapport.
+Le fichier sera constitué du nom de la team.
 
-TIP: Via PHPStorm, ouvrir votre README.adoc, puis `View|Appearence|Enter Presentation Mode` (c’est un mode WYSIWYG), le menu du haut dispose d’une commande d’export PDF.
-
+Votre rapport sera *daté*, comportera le nom de tous les collaborateurs de la team ainsi qu'un lien vers l'ennoncé de la mission (ce doc) et un autre vers votre projet hébergé. Rappel, votre rapport est le  README de votre projet.
 
 
 == Annexes
@@ -219,8 +221,72 @@ image:csv-exemple.png[csv exemple wikipedia]
 
 => Format CSV en détails : https://tools.ietf.org/html/rfc4180
 
+
 TIP: Les fichiers CSV sont, par défaut, ouverts par des logiciels tableur (Calc, Excel...).
 C'est une source de confusion des utilisateurs lambda, confondant `CSV` avec ... Excel.
+
+
+==== Extrait de la RFC 4180
+
+(https://tools.ietf.org/html/rfc4180 )
+
+Definition of the CSV Format
+While there are various specifications and implementations for the
+CSV format, there is no formal specification in existence... but :
+
+1.  Each record is located on a separate line, delimited by a line
+break (CRLF).  For example:
+
+       aaa,bbb,ccc CRLF
+       zzz,yyy,xxx CRLF
+
+2.  The last record in the file may or may not have an ending line
+break.  For example:
+
+       aaa,bbb,ccc CRLF
+       zzz,yyy,xxx
+
+3.  There maybe an optional header line appearing as the first line
+of the file with the same format as normal record lines.  This
+header will contain names corresponding to the fields in the file
+and should contain the same number of fields as the records in
+the rest of the file (the presence or absence of the header line
+should be indicated via the optional "header" parameter of this
+MIME type).  For example:
+
+       field_name,field_name,field_name CRLF
+       aaa,bbb,ccc CRLF
+       zzz,yyy,xxx CRLF
+
+4.  Within the header and each record, there may be one or more
+fields, separated by commas.  Each line should contain the same
+number of fields throughout the file.  Spaces are considered part
+of a field and should not be ignored.  The last field in the
+record must not be followed by a comma.  For example:
+
+       aaa,bbb,ccc
+
+5.  Each field may or may not be enclosed in double quotes (however
+some programs, such as Microsoft Excel, do not use double quotes
+at all).  If fields are not enclosed with double quotes, then
+double quotes may not appear inside the fields.  For example:
+
+       "aaa","bbb","ccc" CRLF
+       zzz,yyy,xxx
+
+6.  Fields containing line breaks (CRLF), double quotes, and commas
+should be enclosed in double-quotes.  For example:
+
+       "aaa","b CRLF
+       bb","ccc" CRLF
+       zzz,yyy,xxx
+
+7.  If double-quotes are used to enclose fields, then a double-quote
+appearing inside a field must be escaped by preceding it with
+another double quote.  For example:
+
+       "aaa","b""bb","ccc"
+
 
 ==== Principes d'exploitation d'un fichier CSV
 
@@ -244,7 +310,7 @@ du fichier (fait avancer le curseur de lecture, après chaque lecture de ligne) 
 
 Voir la documentation en ligne de la fonction `fgetcsv` : http://php.net/manual/fr/function.fgetcsv.php
 
-==== Exercice
+==== Testez vos connaissances
 
 Voici un exemple de lecture d'un fichier CSV, proposé par la communauté PHP (aide en ligne)
 
@@ -258,10 +324,10 @@ Parceque les fichiers CSV sont des fichiers "texte" (par opposition au fichier "
 que ce type de fichier peut intégrer une méta-donnée, nommée `BOM` dans les tous premiers octets.
 
 *BOM* (de l'anglais _Byte Order Mark_, parfois traduit en français par _indicateur d'ordre des octets_) est une donnée qui indique l'utilisation d'un
-encodage unicode ainsi que l'ordre des octets. Cette donnée est situé au début de certains fichiers texte.
+encodage unicode ainsi que l'ordre des octets. Cette donnée est située au début de certains fichiers texte.
 
 La donnée du BOM, lorsqu'elle est correctement traitée, est transparente pour les utilisateurs lambda,
-dans le cas contraire où la séquence de BOM est traitée comme du texte, elle apprarait
+dans le cas contraire où la séquence de BOM est traitée comme du texte, elle apparait
 souvent sous cette forme : `ï»¿` et peut alors perturber certains traitements.
 
 Voir plus loin : https://fr.wikipedia.org/wiki/Indicateur_d%27ordre_des_octets
@@ -344,64 +410,3 @@ Un code simple mais bien détaillé, avec une dose de sécurité
 
 http://zetcode.com/symfony/uploadfile/
 
-
-=== Extrait de la RFC 4180
-
-(https://tools.ietf.org/html/rfc4180 )
-
-Definition of the CSV Format
-While there are various specifications and implementations for the
-CSV format, there is no formal specification in existence... but :
-
-1.  Each record is located on a separate line, delimited by a line
-break (CRLF).  For example:
-
-       aaa,bbb,ccc CRLF
-       zzz,yyy,xxx CRLF
-
-2.  The last record in the file may or may not have an ending line
-break.  For example:
-
-       aaa,bbb,ccc CRLF
-       zzz,yyy,xxx
-
-3.  There maybe an optional header line appearing as the first line
-of the file with the same format as normal record lines.  This
-header will contain names corresponding to the fields in the file
-and should contain the same number of fields as the records in
-the rest of the file (the presence or absence of the header line
-should be indicated via the optional "header" parameter of this
-MIME type).  For example:
-
-       field_name,field_name,field_name CRLF
-       aaa,bbb,ccc CRLF
-       zzz,yyy,xxx CRLF
-
-4.  Within the header and each record, there may be one or more
-fields, separated by commas.  Each line should contain the same
-number of fields throughout the file.  Spaces are considered part
-of a field and should not be ignored.  The last field in the
-record must not be followed by a comma.  For example:
-
-       aaa,bbb,ccc
-
-5.  Each field may or may not be enclosed in double quotes (however
-some programs, such as Microsoft Excel, do not use double quotes
-at all).  If fields are not enclosed with double quotes, then
-double quotes may not appear inside the fields.  For example:
-
-       "aaa","bbb","ccc" CRLF
-       zzz,yyy,xxx
-
-6.  Fields containing line breaks (CRLF), double quotes, and commas
-should be enclosed in double-quotes.  For example:
-
-       "aaa","b CRLF
-       bb","ccc" CRLF
-       zzz,yyy,xxx
-
-7.  If double-quotes are used to enclose fields, then a double-quote
-appearing inside a field must be escaped by preceding it with
-another double quote.  For example:
-
-       "aaa","b""bb","ccc"
