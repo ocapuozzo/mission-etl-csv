@@ -1,4 +1,4 @@
-= SparkLine : projet en développement logiciel
+= Vetux-Line : projet en développement logiciel
 O. Capuozzo
 v1.2, 2020-09-22: Version asciidoc
 :description: Aborder un exemple de traitement sur des données CSV
