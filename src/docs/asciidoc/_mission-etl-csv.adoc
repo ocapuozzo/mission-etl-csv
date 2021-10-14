@@ -72,10 +72,10 @@ image:fusion-types.png[types de fusion]
 
 === Ce qui est attendu à l'issue de la première partie
 
-Le `README.adoc ou .md` de votre projet hébergé sur un dépôt GIT distant fera office
+*A/* Le *`README.adoc ou .md`* de votre projet hébergé sur un dépôt GIT distant fera office
 de rapport de projet.
 
-Les opérations liées à la fusion (des méthodes/fonctions) seront placées dans une *classe à part*,
+*B/* *Les opérations liées à la fusion* (des méthodes/fonctions) seront placées dans une *classe à part*,
 en vue d'une utilisation par *injection de service* dans un de vos contrôleurs.
 
 L'injection de service est une opération fortement facilité par Symfony (c'est lui qui se charge de l'injection).
@@ -90,7 +90,7 @@ Ressource à étudier : les 2 premiers chapitres de : https://symfony.com/doc/cu
 
 Votre rapport présentera vos travaux dans ce sens (algorithme, et méthode d'injection utilisée)
 
-* Gestion du upload
+*C/* *Gestion du upload*
 
 Les fichiers à traiter sont transmis par l'utilisateur gestionnaire.
 
@@ -99,11 +99,11 @@ Un gestionnaire est un utilisateur ayant des droits spécifiques.
 Votre rapport présentera vos travaux dans ce sens (compréhension de la gestion de l'upload dans le
 cadre d'une applications web multi-utilisateurs)
 
-* Gestion du download
+*D/* *Gestion du download*
 
 In fine, le cas d'utilisation "fusion++" (après le upload des 2 fichiers à traiter) produira le fichier CSV attendu (type MIME  `text/csv`) et certaines autres données : statistiques, clients en erreur.
 
-* Prise en compte de un ou plus scénarios à risque, formulés sous la forme simple d'un _Evil User Stories_ et leur *contre-mesure*.  Voir exemple ici :  https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/
+*E/* *Au moins deux _Evil User Stories_ et leur contre-mesure* : Prise en compte de scénarios à risque, formulés sous la forme simple d'un _Evil User Stories_ et leur *contre-mesure*.  Voir exemple ici :  https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/
 
 
 == Deuxième partie : ETL
