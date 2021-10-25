@@ -75,17 +75,16 @@ image:fusion-types.png[types de fusion]
 *A/* Le *`README.adoc ou .md`* de votre projet hébergé sur un dépôt GIT distant fera office
 de rapport de projet.
 
-*B/* *Les opérations liées à la fusion* (des méthodes/fonctions) seront placées dans une *classe à part*,
-en vue d'une utilisation par *injection de service* dans un de vos contrôleurs.
+*B/* *Les opérations liées à la fusion séléctive* (des méthodes/fonctions) seront placées dans une *classe à part*, en vue d'une utilisation par *injection de service* dans un de vos contrôleurs.
 
 L'injection de service est une opération fortement facilité par Symfony (c'est lui qui se charge de l'injection).
 
 Ressource à étudier : les 2 premiers chapitres de : https://symfony.com/doc/current/service_container.html (durée : ~20mn) - Vous apprendrez à créer un service (`MessageGenerator`) et à l'utiliser dans un contrôleur, bien suffisant pour commencer.
 
-* Opérations de fusion en tant que *service injecté* tenant compte des contraintes de taille et de ccn.
+* Opérations de fusion sélective en tant que *service injecté* (prise en compte des contraintes de taille et de ccn).
 
 * Présentation de votre branche de *tests unitaires* couvrant :
-** les fusions++ séquetielles et entrelacées, avec comme données d'entrée les fichiers `small-french-client.csv` et `small-german-client.csv`.
+** les fusions séléctives séquetielles et entrelacées, avec comme données d'entrée les fichiers `small-french-client.csv` et `small-german-client.csv`.
 ** les extractions des clients pour données incorrectes
 
 Votre rapport présentera vos travaux dans ce sens (algorithme, et méthode d'injection utilisée)
@@ -94,22 +93,24 @@ Votre rapport présentera vos travaux dans ce sens (algorithme, et méthode d'in
 
 Les fichiers à traiter sont transmis par l'utilisateur gestionnaire.
 
-Un gestionnaire est un utilisateur ayant des droits spécifiques.
+Un gestionnaire est un utilisateur ayant des *droits spécifiques*.
 
 Votre rapport présentera vos travaux dans ce sens (compréhension de la gestion de l'upload dans le
 cadre d'une applications web multi-utilisateurs)
 
-*D/* *Gestion du download*
+*D/* *Gestion de la réponse au gestionnaire (download)*
 
-In fine, le cas d'utilisation "fusion++" (après le upload des 2 fichiers à traiter) produira le fichier CSV attendu (type MIME  `text/csv`) et certaines autres données : statistiques, clients en erreur.
+In fine, le cas d'utilisation "fusion++" (après le upload des 2 fichiers à traiter) produira un contenu CSV attendu (type MIME  `text/csv`) et certaines autres données : statistiques, clients en erreur...
 
-*E/* *Au moins deux _Evil User Stories_ et leur contre-mesure* : Prise en compte de scénarios à risque, formulés sous la forme simple d'un _Evil User Stories_ et leur *contre-mesure*.  Voir exemple ici :  https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/
+*E/* *Au moins deux _Evil User Stories_ et leur contre-mesure* : Prise en compte de scénarios à risque, formulés sous la forme simple d'un _Evil User Stories_ et leur *contre-mesure* (réponse technique).  Voir exemple ici :  https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/
 
+IMPORTANT: Les _Evil US_ feront l'objet d'une *évaluation à part*, et leur dead-line est le *dimanche 7 novembre 23h59*. +
+Quelques pistes conceptuelles : _Niveau de confiance des données d’entrée_, Stratégie de gestion de la _surface d’attaque_ (réduction, gestion des dépendances), _Défense en profondeur_ (Voir https://fr.wikipedia.org/wiki/D%C3%A9fense_en_profondeur), _principe du moindre privilège_, _valeurs par défaut sécurisées_ (en particulier les données de configuration), Mot de passe chiffrés en base de données et comment l’utiliser...
 
 == Deuxième partie : ETL
 
 L'entreprise VETUX-LINE envisage de se lancer dans des produits en liens avec l'automobile.
-Le département R&D souhaite disposer d'un modèle de donnée suivant :
+Le département R&D souhaite disposer d'un modèle de données suivant :
 
 .Schema conceptuel client-auto
 [plantuml]
@@ -138,8 +139,7 @@ hide circle
 hide method
 ----
 
-Votre mission consiste, à partir d'un fichier client CSV issu de la fusion (partie 1), transmis par
-l'utilisateur (upload), de peupler une base de données de tests correspondant au schéma conceptuel ci-dessus.
+Votre mission consiste, à partir d'un fichier client CSV issu de la fusion (partie 1), transmis par l'utilisateur (upload), de peupler une base de données de tests correspondant au schéma conceptuel ci-dessus (fonction dite _ETL_)
 
 Pour cela vous définirez le modèle conceptel du domaine par un ensemble des entités métier (des classe `entity`).
 
@@ -161,32 +161,31 @@ et `Marque (id=3  nom:"Ford")`
 
 === Ce qui est attendu à l'issue de la seconde partie
 
-* Conception de la partie *Model* (ajout d'entités)
-* Lien avec un serveur de base de données (MySql)
-* Conception d'une fonction ELT (_Extract Transform Load_).
-* Application de la fonction ETL dans un contrôleur. Mise au point d'un scénario utilisateur intégrant des règles de validation (robustesse de l'application)
-* Prise en compte de un ou plus scénarios à risque, formulés sous la forme simple d'un _Evil User Stories_ et leur *contre-mesure*.  Voir exemple ici :  https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/
+* *A/* Conception de la partie *Model* (ajout d'entités)
+* *B/* Lien avec un serveur de base de données (MySql)
+* *C/* Conception d'une fonction ELT (_Extract Transform Load_).
+* *D/* Application de la fonction ETL dans un contrôleur. Mise au point d'un scénario utilisateur intégrant des règles de validation (robustesse de l'application)
+* *E/* Prise en compte de scénarios à risque, formulés sous la forme simple d'_Evil User Stories_ et leur *contre-mesure*.  Voir exemple ici :  https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/
 
-IMPORTANT: L'utilisateur pourra être en mesure de renouveller son action avec de nouvelles données ou des
-données mises à jours. **Le chargement de nouvelles données ne devra pas générer de doublons dans la base de données**.
+IMPORTANT: *F/* L'utilisateur pourra être en mesure de renouveler son action avec de nouvelles données ou des données mises à jours. **Le chargement de nouvelles données ne devra pas générer de doublons dans la base de données**.
 
-* Une représentation graphique de données statistiques (répartition des marques
-parmi les clients) est attendue sur le tiers client. Les données exploitées pour cette représentation
-seront tirées de la base de donnes.
-À vous de proposer une vue adaptée pour le service R&D.
+* *G/* Une représentation graphique de données statistiques (répartition des marques
+parmi les clients) est attendue sur le tiers client. Les données exploitées pour cette représentation seront tirées de la base de donnes. À vous de proposer une vue adaptée pour le service R&D.
 
-* (optionnel) Une fonction d'export de données client serait appréciée (format à déterminer).
+* (*H/* optionnel) Une fonction d'export de données client serait appréciée (format à déterminer).
 
 
 == Livraison
 
-La date de livraison est : *dimanche 24 octobre 2021 - 23h59*
+La date de livraison est : *dimanche 31 octobre 2021 - 23h59*
 
-Vous communiquerez, par un des membres du groupe - les autres en CC, une version *pdf* de votre rapport.
+Vous communiquerez, par un des membres du groupe - les autres en CC -, une version *pdf* de votre rapport README.
+
 Le fichier sera constitué du nom de la team.
 
-Votre rapport sera *daté*, comportera le nom de tous les collaborateurs de la team ainsi qu'un lien vers l'ennoncé de la mission (ce doc) et un autre vers votre projet hébergé. Rappel, votre rapport est le  README de votre projet.
+Votre rapport sera *daté*, comportera le nom de tous les collaborateurs de la team ainsi qu'un lien vers l'énoncé de la mission (ce doc) et un autre vers votre projet hébergé. Rappel, votre rapport est le  README de votre projet.
 
+IMPORTANT: Les _Evil US_ feront l'objet d'une évaluation à part, et leur dead-line est le *dimanche 7 novembre 23h59*.
 
 == Annexes
 

@@ -179,8 +179,7 @@ Fic B : ° °</pre>
 de rapport de projet.</p>
 </div>
 <div class="paragraph">
-<p><strong>B/</strong> <strong>Les opérations liées à la fusion</strong> (des méthodes/fonctions) seront placées dans une <strong>classe à part</strong>,
-en vue d&#8217;une utilisation par <strong>injection de service</strong> dans un de vos contrôleurs.</p>
+<p><strong>B/</strong> <strong>Les opérations liées à la fusion séléctive</strong> (des méthodes/fonctions) seront placées dans une <strong>classe à part</strong>, en vue d&#8217;une utilisation par <strong>injection de service</strong> dans un de vos contrôleurs.</p>
 </div>
 <div class="paragraph">
 <p>L&#8217;injection de service est une opération fortement facilité par Symfony (c&#8217;est lui qui se charge de l&#8217;injection).</p>
@@ -191,14 +190,14 @@ en vue d&#8217;une utilisation par <strong>injection de service</strong> dans un
 <div class="ulist">
 <ul>
 <li>
-<p>Opérations de fusion en tant que <strong>service injecté</strong> tenant compte des contraintes de taille et de ccn.</p>
+<p>Opérations de fusion sélective en tant que <strong>service injecté</strong> (prise en compte des contraintes de taille et de ccn).</p>
 </li>
 <li>
 <p>Présentation de votre branche de <strong>tests unitaires</strong> couvrant :</p>
 <div class="ulist">
 <ul>
 <li>
-<p>les fusions++ séquetielles et entrelacées, avec comme données d&#8217;entrée les fichiers <code>small-french-client.csv</code> et <code>small-german-client.csv</code>.</p>
+<p>les fusions séléctives séquetielles et entrelacées, avec comme données d&#8217;entrée les fichiers <code>small-french-client.csv</code> et <code>small-german-client.csv</code>.</p>
 </li>
 <li>
 <p>les extractions des clients pour données incorrectes</p>
@@ -218,20 +217,33 @@ en vue d&#8217;une utilisation par <strong>injection de service</strong> dans un
 <p>Les fichiers à traiter sont transmis par l&#8217;utilisateur gestionnaire.</p>
 </div>
 <div class="paragraph">
-<p>Un gestionnaire est un utilisateur ayant des droits spécifiques.</p>
+<p>Un gestionnaire est un utilisateur ayant des <strong>droits spécifiques</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Votre rapport présentera vos travaux dans ce sens (compréhension de la gestion de l&#8217;upload dans le
 cadre d&#8217;une applications web multi-utilisateurs)</p>
 </div>
 <div class="paragraph">
-<p><strong>D/</strong> <strong>Gestion du download</strong></p>
+<p><strong>D/</strong> <strong>Gestion de la réponse au gestionnaire (download)</strong></p>
 </div>
 <div class="paragraph">
-<p>In fine, le cas d&#8217;utilisation "fusion++" (après le upload des 2 fichiers à traiter) produira le fichier CSV attendu (type MIME  <code>text/csv</code>) et certaines autres données : statistiques, clients en erreur.</p>
+<p>In fine, le cas d&#8217;utilisation "fusion++" (après le upload des 2 fichiers à traiter) produira un contenu CSV attendu (type MIME  <code>text/csv</code>) et certaines autres données : statistiques, clients en erreur&#8230;&#8203;</p>
 </div>
 <div class="paragraph">
-<p><strong>E/</strong> <strong>Au moins deux <em>Evil User Stories</em> et leur contre-mesure</strong> : Prise en compte de scénarios à risque, formulés sous la forme simple d&#8217;un <em>Evil User Stories</em> et leur <strong>contre-mesure</strong>.  Voir exemple ici :  <a href="https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/" class="bare">https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/</a></p>
+<p><strong>E/</strong> <strong>Au moins deux <em>Evil User Stories</em> et leur contre-mesure</strong> : Prise en compte de scénarios à risque, formulés sous la forme simple d&#8217;un <em>Evil User Stories</em> et leur <strong>contre-mesure</strong> (réponse technique).  Voir exemple ici :  <a href="https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/" class="bare">https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/</a></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Les <em>Evil US</em> feront l&#8217;objet d&#8217;une <strong>évaluation à part</strong>, et leur dead-line est le <strong>dimanche 7 novembre 23h59</strong>.<br>
+Quelques pistes conceptuelles : <em>Niveau de confiance des données d’entrée</em>, Stratégie de gestion de la <em>surface d’attaque</em> (réduction, gestion des dépendances), <em>Défense en profondeur</em> (Voir <a href="https://fr.wikipedia.org/wiki/D%C3%A9fense_en_profondeur" class="bare">https://fr.wikipedia.org/wiki/D%C3%A9fense_en_profondeur</a>), <em>principe du moindre privilège</em>, <em>valeurs par défaut sécurisées</em> (en particulier les données de configuration), Mot de passe chiffrés en base de données et comment l’utiliser&#8230;&#8203;
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -239,7 +251,7 @@ cadre d&#8217;une applications web multi-utilisateurs)</p>
 <h3 id="deuxième-partie-etl"><a class="anchor" href="#deuxième-partie-etl"></a>Deuxième partie : ETL</h3>
 <div class="paragraph">
 <p>L&#8217;entreprise VETUX-LINE envisage de se lancer dans des produits en liens avec l&#8217;automobile.
-Le département R&amp;D souhaite disposer d&#8217;un modèle de donnée suivant :</p>
+Le département R&amp;D souhaite disposer d&#8217;un modèle de données suivant :</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -248,8 +260,7 @@ Le département R&amp;D souhaite disposer d&#8217;un modèle de donnée suivant 
 <div class="title">Figure 1. Schema conceptuel client-auto</div>
 </div>
 <div class="paragraph">
-<p>Votre mission consiste, à partir d&#8217;un fichier client CSV issu de la fusion (partie 1), transmis par
-l&#8217;utilisateur (upload), de peupler une base de données de tests correspondant au schéma conceptuel ci-dessus.</p>
+<p>Votre mission consiste, à partir d&#8217;un fichier client CSV issu de la fusion (partie 1), transmis par l&#8217;utilisateur (upload), de peupler une base de données de tests correspondant au schéma conceptuel ci-dessus (fonction dite <em>ETL</em>)</p>
 </div>
 <div class="paragraph">
 <p>Pour cela vous définirez le modèle conceptel du domaine par un ensemble des entités métier (des classe <code>entity</code>).</p>
@@ -287,19 +298,19 @@ et <code>Marque (id=3  nom:"Ford")</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>Conception de la partie <strong>Model</strong> (ajout d&#8217;entités)</p>
+<p><strong>A/</strong> Conception de la partie <strong>Model</strong> (ajout d&#8217;entités)</p>
 </li>
 <li>
-<p>Lien avec un serveur de base de données (MySql)</p>
+<p><strong>B/</strong> Lien avec un serveur de base de données (MySql)</p>
 </li>
 <li>
-<p>Conception d&#8217;une fonction ELT (<em>Extract Transform Load</em>).</p>
+<p><strong>C/</strong> Conception d&#8217;une fonction ELT (<em>Extract Transform Load</em>).</p>
 </li>
 <li>
-<p>Application de la fonction ETL dans un contrôleur. Mise au point d&#8217;un scénario utilisateur intégrant des règles de validation (robustesse de l&#8217;application)</p>
+<p><strong>D/</strong> Application de la fonction ETL dans un contrôleur. Mise au point d&#8217;un scénario utilisateur intégrant des règles de validation (robustesse de l&#8217;application)</p>
 </li>
 <li>
-<p>Prise en compte de un ou plus scénarios à risque, formulés sous la forme simple d&#8217;un <em>Evil User Stories</em> et leur <strong>contre-mesure</strong>.  Voir exemple ici :  <a href="https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/" class="bare">https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/</a></p>
+<p><strong>E/</strong> Prise en compte de scénarios à risque, formulés sous la forme simple d'<em>Evil User Stories</em> et leur <strong>contre-mesure</strong>.  Voir exemple ici :  <a href="https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/" class="bare">https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/</a></p>
 </li>
 </ul>
 </div>
@@ -310,8 +321,7 @@ et <code>Marque (id=3  nom:"Ford")</code></p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-L&#8217;utilisateur pourra être en mesure de renouveller son action avec de nouvelles données ou des
-données mises à jours. <strong>Le chargement de nouvelles données ne devra pas générer de doublons dans la base de données</strong>.
+<strong>F/</strong> L&#8217;utilisateur pourra être en mesure de renouveler son action avec de nouvelles données ou des données mises à jours. <strong>Le chargement de nouvelles données ne devra pas générer de doublons dans la base de données</strong>.
 </td>
 </tr>
 </table>
@@ -319,13 +329,11 @@ données mises à jours. <strong>Le chargement de nouvelles données ne devra pa
 <div class="ulist">
 <ul>
 <li>
-<p>Une représentation graphique de données statistiques (répartition des marques
-parmi les clients) est attendue sur le tiers client. Les données exploitées pour cette représentation
-seront tirées de la base de donnes.
-À vous de proposer une vue adaptée pour le service R&amp;D.</p>
+<p><strong>G/</strong> Une représentation graphique de données statistiques (répartition des marques
+parmi les clients) est attendue sur le tiers client. Les données exploitées pour cette représentation seront tirées de la base de donnes. À vous de proposer une vue adaptée pour le service R&amp;D.</p>
 </li>
 <li>
-<p>(optionnel) Une fonction d&#8217;export de données client serait appréciée (format à déterminer).</p>
+<p>(<strong>H/</strong> optionnel) Une fonction d&#8217;export de données client serait appréciée (format à déterminer).</p>
 </li>
 </ul>
 </div>
@@ -334,14 +342,28 @@ seront tirées de la base de donnes.
 <div class="sect2">
 <h3 id="livraison"><a class="anchor" href="#livraison"></a>Livraison</h3>
 <div class="paragraph">
-<p>La date de livraison est : <strong>dimanche 24 octobre 2021 - 23h59</strong></p>
+<p>La date de livraison est : <strong>dimanche 31 octobre 2021 - 23h59</strong></p>
 </div>
 <div class="paragraph">
-<p>Vous communiquerez, par un des membres du groupe - les autres en CC, une version <strong>pdf</strong> de votre rapport.
-Le fichier sera constitué du nom de la team.</p>
+<p>Vous communiquerez, par un des membres du groupe - les autres en CC -, une version <strong>pdf</strong> de votre rapport README.</p>
 </div>
 <div class="paragraph">
-<p>Votre rapport sera <strong>daté</strong>, comportera le nom de tous les collaborateurs de la team ainsi qu&#8217;un lien vers l&#8217;ennoncé de la mission (ce doc) et un autre vers votre projet hébergé. Rappel, votre rapport est le  README de votre projet.</p>
+<p>Le fichier sera constitué du nom de la team.</p>
+</div>
+<div class="paragraph">
+<p>Votre rapport sera <strong>daté</strong>, comportera le nom de tous les collaborateurs de la team ainsi qu&#8217;un lien vers l&#8217;énoncé de la mission (ce doc) et un autre vers votre projet hébergé. Rappel, votre rapport est le  README de votre projet.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Les <em>Evil US</em> feront l&#8217;objet d&#8217;une évaluation à part, et leur dead-line est le <strong>dimanche 7 novembre 23h59</strong>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
