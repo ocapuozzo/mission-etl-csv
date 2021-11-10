@@ -104,7 +104,7 @@ In fine, le cas d'utilisation "fusion++" (après le upload des 2 fichiers à tra
 
 *E/* *Au moins deux _Evil User Stories_ et leur contre-mesure* : Prise en compte de scénarios à risque, formulés sous la forme simple d'un _Evil User Stories_ et leur *contre-mesure* (réponse technique).  Voir exemple ici :  https://www.riskinsight-wavestone.com/2019/12/cybersecurity-transformation-agile/
 
-IMPORTANT: Les _Evil US_ feront l'objet d'une *évaluation à part*, et leur dead-line est le *dimanche 7 novembre 23h59*. +
+IMPORTANT: Les _Evil US_ feront l'objet d'une *évaluation à part*, et leur dead-line est le *XXX 23h59*. +
 Quelques pistes conceptuelles : _Niveau de confiance des données d’entrée_, Stratégie de gestion de la _surface d’attaque_ (réduction, gestion des dépendances), _Défense en profondeur_ (Voir https://fr.wikipedia.org/wiki/D%C3%A9fense_en_profondeur), _principe du moindre privilège_, _valeurs par défaut sécurisées_ (en particulier les données de configuration), Mot de passe chiffrés en base de données et comment l’utiliser...
 
 == Deuxième partie : ETL
@@ -177,7 +177,7 @@ parmi les clients) est attendue sur le tiers client. Les données exploitées po
 
 == Livraison
 
-La date de livraison est : *dimanche 31 octobre 2021 - 23h59*
+La date de livraison est : *XXX  - 23h59*
 
 Vous communiquerez, par un des membres du groupe - les autres en CC -, une version *pdf* de votre rapport README.
 
@@ -185,7 +185,7 @@ Le fichier sera constitué du nom de la team.
 
 Votre rapport sera *daté*, comportera le nom de tous les collaborateurs de la team ainsi qu'un lien vers l'énoncé de la mission (ce doc) et un autre vers votre projet hébergé. Rappel, votre rapport est le  README de votre projet.
 
-IMPORTANT: Les _Evil US_ feront l'objet d'une évaluation à part, et leur dead-line est le *dimanche 7 novembre 23h59*.
+IMPORTANT: Les _Evil US_ feront l'objet d'une évaluation à part, et leur dead-line est le *XXX +7 23h59*.
 
 == Annexes
 
